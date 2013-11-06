@@ -1,7 +1,6 @@
 <div ng-controller="SetupCtrl" ng-cloak class="ng-cloak">
 	Select Climbing Type
-	{{data}}
-	<select ng-model="data.climbingType" ng-options="climbingtype.name as climbingtype.name for climbingtype in types"></select>
+	<select ng-model="session.climbingType" ng-options="climbingtype.name as climbingtype.name for climbingtype in types"></select>
 </div>
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
 	{{climbs}}

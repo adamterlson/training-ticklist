@@ -24,7 +24,7 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 
 function SetupCtrl($scope, ClimbingTypes, SessionService) {
 	$scope.types = ClimbingTypes;
-	$scope.data = SessionService;
+	$scope.session = SessionService;
 }
 
 function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
@@ -54,7 +54,6 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 	};
 
 	$scope.addTick = function (climbingType, rating) {
-		console.log(arguments);
 		if (!climbingType || !rating) return;
 		storage.ticks.push({ description: rating, climbingType: climbingType, points: 10 });
 	};
