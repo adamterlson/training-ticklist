@@ -1,5 +1,6 @@
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
-	<h3>Remaining Points: {{ticks|remainingPoints}}</h3>
+	<h3 ng-show="remainingPoints()">Remaining Points: {{remainingPoints()}}</h3>
+	<h3 ng-hide="remainingPoints()">Congrats!</h3>
 	<h3>Climbs: {{ticks.length}}</h3>
 	<ul>
 		<li ng-repeat="tick in ticks">

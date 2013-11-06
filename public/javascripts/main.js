@@ -1,21 +1,4 @@
-angular.module('tt', ['ngResource'])
-	.filter('totalPoints', function () {
-		return function (climbs) {
-			var sum = 0;
-			climbs.forEach(function (climb) {
-				sum += climb.points;
-			});
-			return sum;
-		};
-	})
-	.filter('remainingPoints', function ($filter) {
-		return function (climbs) {
-			var goal = 100;
-			var total = $filter('totalPoints')(climbs);
-			var remaining = goal - total;
-			return remaining < 0 ? 0 : remaining;
-		};
-	});
+angular.module('tt', ['ngResource']);
 
 function TicklistCtrl($scope, $resource) {
 	var Tick = $resource('api/ticks/:id', { id: '@id' });
@@ -43,7 +26,20 @@ function TicklistCtrl($scope, $resource) {
 		},
 	];
 
-	$scope.remainingPoints = function () {}
+	$scope.totalPoints = function () {
+		var sum = 0;
+		ticks.forEach(function (tick) {
+			sum += tick.points;
+		});
+		return sum;
+	};
+
+	$scope.remainingPoints = function () {
+		var goal = 100;
+		var total = $scope.totalPoints();
+		var remaining = goal - total;
+		return remaining < 0 ? 0 : remaining;
+	};
 
 	$scope.addTick = function () {
 		if (!$scope.climb || !$scope.climb.points) return;
