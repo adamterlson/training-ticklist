@@ -7,6 +7,14 @@ angular.module('tt', ['ngResource'])
 			});
 			return sum;
 		};
+	})
+	.filter('remainingPoints', function ($filter) {
+		return function (climbs) {
+			var goal = 100;
+			var total = $filter('totalPoints')(climbs);
+			var remaining = goal - total;
+			return remaining < 0 ? 0 : remaining;
+		};
 	});
 
 function TicklistCtrl($scope, $resource) {
@@ -34,6 +42,8 @@ function TicklistCtrl($scope, $resource) {
 			description: '5.10'
 		},
 	];
+
+	$scope.remainingPoints = function () {}
 
 	$scope.addTick = function () {
 		if (!$scope.climb || !$scope.climb.points) return;

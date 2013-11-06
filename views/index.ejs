@@ -1,5 +1,5 @@
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
-	<h3>Remaining Points: {{100-(ticks|totalPoints)}}</h3>
+	<h3>Remaining Points: {{ticks|remainingPoints}}</h3>
 	<h3>Climbs: {{ticks.length}}</h3>
 	<ul>
 		<li ng-repeat="tick in ticks">
