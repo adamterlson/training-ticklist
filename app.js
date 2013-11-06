@@ -35,7 +35,7 @@ var ExpressREST = require('./lib/express-rest'),
     myProvider = new ExpressREST.Provider({ collection: myCollection }),
     myController = new ExpressREST.Controller({ provider: myProvider });
 
-myController.bind(app, '/api/myresource');
+myController.bind(app, '/api/ticks');
 
 app.get('/', routes.index);
 
