@@ -1,4 +1,6 @@
-var SCALE_LENGTH = 5;
+var SCALE_LENGTH = 7,
+	BONUS_CLIMBS = 2,
+	MAX_POINTS = 10;
 
 
 angular.module('tt', ['ngResource', 'ngStorage'])
@@ -9,7 +11,7 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 	})
 	.filter('sexypoints', function () {
 		return function(points) {
-			return points * 100;
+			return Math.floor(points * 100);
 		};
 	})
 	.factory('SessionService', function (ClimbingTypes) {
@@ -33,18 +35,17 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 		return climbingTypes;
 	});
 
-function calculatePoints(rating, scale) {
-	var maxPoint = 10,
-		maxPointIndex = scale.length - 2,
-		bonus = 3,
+function calculatePoints(rating, scale, bestClimb) {
+	var maxPointIndex = scale.indexOf(bestClimb),
+		bonus = MAX_POINTS/4,
 		index = scale.indexOf(rating),
-		slope = maxPoint / (SCALE_LENGTH-1);
+		slope = MAX_POINTS / (SCALE_LENGTH-1);
 
 	if (index > maxPointIndex) {
-		return maxPoint + bonus;
+		return MAX_POINTS + bonus * (index - maxPointIndex);
 	}
 
-	return maxPoint - slope * (maxPointIndex - index);
+	return MAX_POINTS - slope * (maxPointIndex - index);
 }
 
 function SetupCtrl($scope, ClimbingTypes, SessionService) {
@@ -61,7 +62,7 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 	$scope.climbingScale = function () {
 		var upperBound;
 
-		upperBound = SessionService.climbingType.scale.indexOf(SessionService.projectLevel) + 2;
+		upperBound = SessionService.climbingType.scale.indexOf(SessionService.projectLevel) + BONUS_CLIMBS + 1;
 		if (upperBound >= SessionService.climbingType.scale.length) upperBound = SessionService.climbingType.scale.length;
 
 		return SessionService.climbingType.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
@@ -92,7 +93,7 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 		storage.ticks.push({ 
 			description: rating, 
 			climbingType: $scope.session.climbingType, 
-			points: calculatePoints(rating, $scope.climbingScale())
+			points: calculatePoints(rating, $scope.climbingScale(), $scope.session.projectLevel)
 		});
 	};
 
