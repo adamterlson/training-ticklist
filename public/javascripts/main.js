@@ -1,4 +1,9 @@
-angular.module('tt', ['ngResource']);
+angular.module('tt', ['ngResource', 'ngStorage'])
+	.filter('reverse', function() {
+		return function(items) {
+			return items.slice().reverse();
+		};
+	});
 
 var vScale = [
 	{
@@ -46,9 +51,10 @@ var yosemiteScale = [
 	}
 ];
 
-function TicklistCtrl($scope, $resource) {
-	var Tick = $resource('api/ticks/:id', { id: '@id' });
-	var ticks = $scope.ticks = Tick.query();
+function TicklistCtrl($scope, $localStorage) {
+	var storage = $scope.$storage = $localStorage.$default({
+		ticks: []
+	});
 
 	$scope.climbs = {
 		'top rope': yosemiteScale,
@@ -58,7 +64,7 @@ function TicklistCtrl($scope, $resource) {
 
 	$scope.totalPoints = function () {
 		var sum = 0;
-		ticks.forEach(function (tick) {
+		storage.ticks.forEach(function (tick) {
 			sum += tick.points;
 		});
 		return sum;
@@ -72,23 +78,17 @@ function TicklistCtrl($scope, $resource) {
 	};
 
 	$scope.newList = function () {
-		ticks.forEach(function (tick) {
-			tick.$delete();
-		});
-		ticks = $scope.ticks = [];
+		storage.ticks = [];
 	};
 
 	$scope.addTick = function (climbingType, climb) {
 		if (!climbingType || !climb) return;
-		var tick = new Tick(climb);
-		tick.climbingType = climbingType;
+		climb.climbingType = climbingType;
 
-		tick.$save();
-		ticks.push(tick);
+		storage.ticks.push(climb);
 	};
 
 	$scope.removeTick = function (tick) {
-		tick.$delete();
-		ticks.splice(ticks.indexOf(tick), 1);
+		storage.ticks.splice(storage.ticks.indexOf(tick), 1);
 	};
 }
