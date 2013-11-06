@@ -60,7 +60,7 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 	var storage = $scope.$storage = $localStorage.$default({
 		ticks: []
 	});
-
+	
 	$scope.session = SessionService;
 	$scope.climbingScale = function () {
 		var upperBound;
