@@ -1,9 +1,15 @@
+<div ng-controller="SetupCtrl" ng-cloak class="ng-cloak">
+	Select Climbing Type
+	{{data}}
+	<select ng-model="data.climbingType" ng-options="climbingtype.name as climbingtype.name for climbingtype in types"></select>
+</div>
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
+	{{climbs}}
 	<h3 ng-show="remainingPoints()">Remaining Points: {{remainingPoints()}}</h3>
-	<div ng-show="remainingPoints()" ng-repeat="(climbingType, list) in climbs">
-		{{climbingType}}
+	<div ng-show="remainingPoints()" ng-repeat="type in climbingTypes">
+		{{type.name}}
 		<div class="btn-group">
-			<button class="btn btn-xs btn-default" ng-repeat="climb in list" ng-click="addTick(climbingType, climb)">{{climb.description}}</button>
+			<button class="btn btn-xs btn-default" ng-repeat="rating in type.scale" ng-click="addTick(type.name, rating)">{{rating}}</button>
 		</div>
 	</div>
 	<div ng-hide="remainingPoints()">

@@ -3,64 +3,36 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 		return function(items) {
 			return items.slice().reverse();
 		};
+	})
+	.factory('SessionService', function (ClimbingTypes) {
+		return {
+			climbingType: ClimbingTypes[0].name,
+			projectLevel: ClimbingTypes[0].scale[0]
+		};
+	})
+	.service('ClimbingTypes', function () {
+		var vScale = ['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10'];
+		var yosemiteScale = ['5.6', '5.7', '5.8', '5.9', '5.10a', '5.10b', '5.10c', '5.10d', '5.11a', '5.11b', '5.11c', '5.11d', '5.12a', '5.12b', '5.12c', '5.12d'];
+		var climbingTypes = [
+			{ name: 'top rope', scale: yosemiteScale },
+			{ name: 'sport', scale: yosemiteScale },
+			{ name: 'bouldering', scale: vScale }
+		];
+
+		return climbingTypes;
 	});
 
-var vScale = [
-	{
-		points: 6,
-		description: 'VB'
-	},
-	{
-		points: 7,
-		description: 'V0'
-	},
-	{
-		points: 8,
-		description: 'V1'
-	},
-	{
-		points: 9,
-		description: 'V2'
-	},
-	{
-		points: 10,
-		description: 'V3'
-	}
-];
+function SetupCtrl($scope, ClimbingTypes, SessionService) {
+	$scope.types = ClimbingTypes;
+	$scope.data = SessionService;
+}
 
-var yosemiteScale = [
-	{
-		points: 6,
-		description: '5.6'
-	},
-	{
-		points: 7,
-		description: '5.7'
-	},
-	{
-		points: 8,
-		description: '5.8'
-	},
-	{
-		points: 9,
-		description: '5.9'
-	},
-	{
-		points: 10,
-		description: '5.10'
-	}
-];
-
-function TicklistCtrl($scope, $localStorage) {
+function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 	var storage = $scope.$storage = $localStorage.$default({
 		ticks: []
 	});
 
-	$scope.climbs = {
-		'top rope': yosemiteScale,
-		'sport': yosemiteScale,
-		'bouldering': vScale
-	};
+	$scope.climbingTypes = ClimbingTypes;
 
 	$scope.totalPoints = function () {
 		var sum = 0;
@@ -81,11 +53,10 @@ function TicklistCtrl($scope, $localStorage) {
 		storage.ticks = [];
 	};
 
-	$scope.addTick = function (climbingType, climb) {
-		if (!climbingType || !climb) return;
-		climb.climbingType = climbingType;
-
-		storage.ticks.push(climb);
+	$scope.addTick = function (climbingType, rating) {
+		console.log(arguments);
+		if (!climbingType || !rating) return;
+		storage.ticks.push({ description: rating, climbingType: climbingType, points: 10 });
 	};
 
 	$scope.removeTick = function (tick) {
