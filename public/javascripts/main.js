@@ -51,6 +51,9 @@ function calculatePoints(rating, scale, bestClimb) {
 function SetupCtrl($scope, ClimbingTypes, SessionService) {
 	$scope.types = ClimbingTypes;
 	$scope.session = SessionService;
+	$scope.$watch('session.climbingType', function (newValue) {
+		$scope.session.projectLevel = newValue.scale[0];
+	});
 }
 
 function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
