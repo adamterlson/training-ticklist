@@ -26,7 +26,7 @@
 	<div ng-show="remainingPoints()">
 		{{session.climbingType.name}}
 		<div class="btn-group">
-			<button class="btn btn-xs btn-default" ng-repeat="rating in session.climbingType.scale" ng-click="addTick(rating)">{{rating}}</button>
+			<button class="btn btn-xs btn-default" ng-repeat="rating in climbingScale()" ng-click="addTick(rating)">{{rating}}</button>
 		</div>
 	</div>
 	<div ng-hide="remainingPoints()">
