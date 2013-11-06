@@ -9,7 +9,7 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 	})
 	.filter('sexypoints', function () {
 		return function(points) {
-			return points * 2;
+			return points * 100;
 		};
 	})
 	.factory('SessionService', function (ClimbingTypes) {
@@ -36,8 +36,13 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 function calculatePoints(rating, scale) {
 	var maxPoint = 10,
 		maxPointIndex = scale.length - 2,
+		bonus = 3,
 		index = scale.indexOf(rating),
 		slope = maxPoint / (SCALE_LENGTH-1);
+
+	if (index > maxPointIndex) {
+		return maxPoint + bonus;
+	}
 
 	return maxPoint - slope * (maxPointIndex - index);
 }
