@@ -37,9 +37,12 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 
 	$scope.session = SessionService;
 	$scope.climbingScale = function () {
-		var upperBound = SessionService.climbingType.scale.indexOf(SessionService.projectLevel) + 1;
-		var lowerBound = upperBound - 5;
-		return SessionService.climbingType.scale.slice((lowerBound > 0 ? lowerBound : 0), upperBound);
+		var upperBound;
+
+		upperBound = SessionService.climbingType.scale.indexOf(SessionService.projectLevel) + 2;
+		if (upperBound >= SessionService.climbingType.scale.length) upperBound = SessionService.climbingType.scale.length;
+
+		return SessionService.climbingType.scale.slice(0, upperBound).slice(-5);
 	};
 
 	$scope.totalPoints = function () {
