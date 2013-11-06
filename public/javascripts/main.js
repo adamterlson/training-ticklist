@@ -1,7 +1,15 @@
+var SCALE_LENGTH = 5;
+
+
 angular.module('tt', ['ngResource', 'ngStorage'])
 	.filter('reverse', function() {
 		return function(items) {
 			return items.slice().reverse();
+		};
+	})
+	.filter('sexypoints', function () {
+		return function(points) {
+			return points * 2;
 		};
 	})
 	.factory('SessionService', function (ClimbingTypes) {
@@ -25,6 +33,15 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 		return climbingTypes;
 	});
 
+function calculatePoints(rating, scale) {
+	var maxPoint = 10,
+		maxPointIndex = scale.length - 2,
+		index = scale.indexOf(rating),
+		slope = maxPoint / (SCALE_LENGTH-1);
+
+	return maxPoint - slope * (maxPointIndex - index);
+}
+
 function SetupCtrl($scope, ClimbingTypes, SessionService) {
 	$scope.types = ClimbingTypes;
 	$scope.session = SessionService;
@@ -42,7 +59,7 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 		upperBound = SessionService.climbingType.scale.indexOf(SessionService.projectLevel) + 2;
 		if (upperBound >= SessionService.climbingType.scale.length) upperBound = SessionService.climbingType.scale.length;
 
-		return SessionService.climbingType.scale.slice(0, upperBound).slice(-5);
+		return SessionService.climbingType.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
 	};
 
 	$scope.totalPoints = function () {
@@ -64,9 +81,14 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 		storage.ticks = [];
 	};
 
-	$scope.addTick = function ( rating) {
+	$scope.addTick = function (rating) {
 		if (!rating) return;
-		storage.ticks.push({ description: rating, climbingType: $scope.session.climbingType, points: 10 });
+
+		storage.ticks.push({ 
+			description: rating, 
+			climbingType: $scope.session.climbingType, 
+			points: calculatePoints(rating, $scope.climbingScale())
+		});
 	};
 
 	$scope.removeTick = function (tick) {
