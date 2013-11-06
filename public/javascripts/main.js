@@ -7,7 +7,8 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 	.factory('SessionService', function (ClimbingTypes) {
 		return {
 			climbingType: ClimbingTypes[0].name,
-			projectLevel: ClimbingTypes[0].scale[0]
+			projectLevel: ClimbingTypes[0].scale[0],
+			goal: 100
 		};
 	})
 	.service('ClimbingTypes', function () {
@@ -51,7 +52,7 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 	};
 
 	$scope.remainingPoints = function () {
-		var goal = 100;
+		var goal = SessionService.goal;
 		var total = $scope.totalPoints();
 		var remaining = goal - total;
 		return remaining < 0 ? 0 : remaining;
