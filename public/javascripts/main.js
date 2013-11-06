@@ -32,7 +32,15 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 		ticks: []
 	});
 
-	$scope.climbingTypes = ClimbingTypes;
+	$scope.scale = [];
+	$scope.options = {
+		session: SessionService,
+		scale: []
+	};
+
+	$scope.$watch('options.session.climbingType', function (newValue) {
+		$scope.options.scale = _.find(ClimbingTypes, { name: newValue }).scale;
+	});
 
 	$scope.totalPoints = function () {
 		var sum = 0;
@@ -53,9 +61,9 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 		storage.ticks = [];
 	};
 
-	$scope.addTick = function (climbingType, rating) {
-		if (!climbingType || !rating) return;
-		storage.ticks.push({ description: rating, climbingType: climbingType, points: 10 });
+	$scope.addTick = function ( rating) {
+		if (!rating) return;
+		storage.ticks.push({ description: rating, climbingType: $scope.options.session.climbingType, points: 10 });
 	};
 
 	$scope.removeTick = function (tick) {
