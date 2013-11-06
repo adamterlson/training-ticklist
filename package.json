@@ -9,7 +9,10 @@
     "express": "3.4.0",
     "ejs": "*",
     "less-middleware": "*",
-    "express-partials": "~0.1.1"
+    "express-partials": "~0.1.1",
+    "lodash": "~2.2.1",
+    "backbone": "~1.1.0",
+    "q": "~0.9.7"
   },
   "main": "app.js",
   "repository": {

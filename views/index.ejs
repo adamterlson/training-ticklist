@@ -1,1 +1,7 @@
-Hello world
+<div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
+	<ul>
+		<li ng-repeat="task in ticklist.items">
+			{{task.points}} - {{task.description}}
+		</li>
+	</ul>
+</div>

@@ -6,7 +6,6 @@
 var express = require('express'), 
 	partials = require('express-partials');
 var routes = require('./routes');
-var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 
@@ -29,8 +28,16 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
+var ExpressREST = require('./lib/express-rest'),
+    data = [],
+
+    myCollection = new ExpressREST.Collection(data),
+    myProvider = new ExpressREST.Provider({ collection: myCollection }),
+    myController = new ExpressREST.Controller({ provider: myProvider });
+
+myController.bind(app, '/api/myresource');
+
 app.get('/', routes.index);
-app.get('/users', user.list);
 
 http.createServer(app).listen(app.get('port'), function(){
   console.log('Express server listening on port ' + app.get('port'));
