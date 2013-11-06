@@ -1,6 +1,7 @@
 <div ng-controller="SetupCtrl" ng-cloak class="ng-cloak">
 	<label for="climbingType">Select Climbing Type</label>
-	<select id="climbingType" name="climbingType" ng-model="session.climbingType" ng-options="climbingtype.name as climbingtype.name for climbingtype in types"></select><br />
+	<select id="climbingType" name="climbingType" ng-model="session.climbingType" ng-options="climbingtype.name for climbingtype in types"></select><br />
+
 	<label for="goal">Goal</label>
 	<select id="goal" name="goal" ng-model="session.goal">
 		<option value="10">10</option>
@@ -13,16 +14,19 @@
 		<option value="80">80</option>
 		<option value="90">90</option>
 		<option value="100">100</option>
-	</select>
+	</select><br />	
+
+	<label for="projectLevel">Hardest Climb Ever Sended</label>
+	<select id="projectLevel" name="projectLevel" ng-model="session.projectLevel" ng-options="rating for rating in session.climbingType.scale"></select>
 </div>
 
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
 	{{climbs}}
 	<h3 ng-show="remainingPoints()">Remaining Points: {{remainingPoints()}}</h3>
 	<div ng-show="remainingPoints()">
-		{{options.session.climbingType}}
+		{{session.climbingType.name}}
 		<div class="btn-group">
-			<button class="btn btn-xs btn-default" ng-repeat="rating in options.scale" ng-click="addTick(rating)">{{rating}}</button>
+			<button class="btn btn-xs btn-default" ng-repeat="rating in session.climbingType.scale" ng-click="addTick(rating)">{{rating}}</button>
 		</div>
 	</div>
 	<div ng-hide="remainingPoints()">
@@ -45,7 +49,7 @@
 			<tbody>
 				<tr ng-repeat="tick in $storage.ticks | reverse">
 					<td>{{tick.description}}</td>
-					<td>{{tick.climbingType | lowercase}}</td>
+					<td>{{tick.climbingType.name | lowercase}}</td>
 					<td>{{tick.points}}</td>
 					<td><button class="btn btn-danger btn-xs" ng-click="removeTick(tick)">remove</button></td>
 				</tr>

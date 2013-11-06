@@ -5,11 +5,13 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 		};
 	})
 	.factory('SessionService', function (ClimbingTypes) {
-		return {
-			climbingType: ClimbingTypes[0].name,
+		var session = {
+			climbingType: ClimbingTypes[0],
 			projectLevel: ClimbingTypes[0].scale[0],
 			goal: 100
 		};
+
+		return session;
 	})
 	.service('ClimbingTypes', function () {
 		var vScale = ['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10'];
@@ -33,15 +35,8 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 		ticks: []
 	});
 
-	$scope.scale = [];
-	$scope.options = {
-		session: SessionService,
-		scale: []
-	};
-
-	$scope.$watch('options.session.climbingType', function (newValue) {
-		$scope.options.scale = _.find(ClimbingTypes, { name: newValue }).scale;
-	});
+	$scope.climbingTypes = ClimbingTypes;
+	$scope.session = SessionService;
 
 	$scope.totalPoints = function () {
 		var sum = 0;
@@ -64,7 +59,7 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 
 	$scope.addTick = function ( rating) {
 		if (!rating) return;
-		storage.ticks.push({ description: rating, climbingType: $scope.options.session.climbingType, points: 10 });
+		storage.ticks.push({ description: rating, climbingType: $scope.session.climbingType, points: 10 });
 	};
 
 	$scope.removeTick = function (tick) {
