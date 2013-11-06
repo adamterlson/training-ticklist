@@ -41,10 +41,10 @@ function TicklistCtrl($scope, $resource) {
 		return remaining < 0 ? 0 : remaining;
 	};
 
-	$scope.addTick = function () {
-		if (!$scope.climb || !$scope.climb.points) return;
-		var tick = new Tick($scope.climb);
-		$scope.climb = '';
+	$scope.addTick = function (climb) {
+		console.log(climb);
+		if (!climb) return;
+		var tick = new Tick(climb);
 		tick.$save();
 		ticks.push(tick);
 	};

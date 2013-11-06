@@ -7,10 +7,7 @@
 			{{tick.points}} - {{tick.description}} <button class="btn btn-danger btn-xs" ng-click="removeTick(tick)">remove</button>
 		</li>
 	</ul>
-
-	<form id="addTick" ng-submit="addTick()">
-		<select name="climb" id="climb" ng-model="climb" ng-options="climb as climb.description for climb in climbs" ng-change="addTick()">
-			<option value="">Please Select Difficulty</option>
-		</select>
-	</form>
+	<div class="btn-group">
+		<button class="btn btn-xs btn-default" ng-repeat="climb in climbs" ng-click="addTick(climb)">{{climb.description}} ({{climb.points}})</button>
+	</div>
 </div>
