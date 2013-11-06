@@ -71,6 +71,13 @@ function TicklistCtrl($scope, $resource) {
 		return remaining < 0 ? 0 : remaining;
 	};
 
+	$scope.newList = function () {
+		ticks.forEach(function (tick) {
+			tick.$delete();
+		});
+		ticks = $scope.ticks = [];
+	};
+
 	$scope.addTick = function (climbingType, climb) {
 		if (!climbingType || !climb) return;
 		var tick = new Tick(climb);

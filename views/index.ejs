@@ -1,16 +1,36 @@
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
 	<h3 ng-show="remainingPoints()">Remaining Points: {{remainingPoints()}}</h3>
-	<h3 ng-hide="remainingPoints()">Congrats!</h3>
-	<h3>Climbs: {{ticks.length}}</h3>
-	<ul>
-		<li ng-repeat="tick in ticks">
-			{{tick.climbingType | uppercase}} - {{tick.points}} - {{tick.description}} <button class="btn btn-danger btn-xs" ng-click="removeTick(tick)">remove</button>
-		</li>
-	</ul>
-	<div ng-repeat="(climbingType, list) in climbs">
+	<div ng-show="remainingPoints()" ng-repeat="(climbingType, list) in climbs">
 		{{climbingType}}
 		<div class="btn-group">
-			<button class="btn btn-xs btn-default" ng-repeat="climb in list" ng-click="addTick(climbingType, climb)">{{climb.description}} ({{climb.points}})</button>
+			<button class="btn btn-xs btn-default" ng-repeat="climb in list" ng-click="addTick(climbingType, climb)">{{climb.description}}</button>
 		</div>
+	</div>
+	<div ng-hide="remainingPoints()">
+		<div class="alert alert-success">
+			Good work!  You completed your workout!
+			<button class="btn btn-default" ng-click="newList()">Go Again</button>
+		</div>
+	</div>
+	<div ng-show="totalPoints()">
+		<h3>Climbs: {{ticks.length}}</h3>
+		<table class="table">
+			<thead>
+				<tr>
+					<th>Climb</th>
+					<th>Type</th>
+					<th>Points</th>
+					<th></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr ng-repeat="tick in ticks">
+					<td>{{tick.description}}</td>
+					<td>{{tick.climbingType | lowercase}}</td>
+					<td>{{tick.points}}</td>
+					<td><button class="btn btn-danger btn-xs" ng-click="removeTick(tick)">remove</button></td>
+				</tr>
+			</tbody>
+		</table>
 	</div>
 </div>
