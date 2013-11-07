@@ -3,14 +3,14 @@
 	<head>
 		<title><%= title %></title>
 		<link rel='stylesheet' href='/stylesheets/style.css' />
-		<link rel='stylesheet' href='/stylesheets/bootstrap.css' />
+		<link rel='stylesheet' href='/stylesheets/bootstrap/bootstrap.css' />
 	</head>
 	<body ng-controller="MainCtrl">
-		<nav class="navbar navbar-fixed-top" role="navigation">
+		<nav class="navbar navbar-top" role="navigation">
 			<div class="container">
 				<!-- Brand and toggle get grouped for better mobile display -->
 				<div class="navbar-header pull-left">
-					<a class="navbar-brand" href="#">Training Ticklist</a>
+					<h1>Training Ticklist</h1>
 				</div>
 
 				<!-- Collect the nav links, forms, and other content for toggling -->
@@ -27,10 +27,7 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container">
-			<%- body %>
-		</div>
-		
+		<%- body %>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.2.1/lodash.backbone.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="/javascripts/lib/bootstrap.js"></script>
