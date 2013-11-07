@@ -1,6 +1,6 @@
 <div ng-controller="SetupCtrl" ng-cloak class="ng-cloak">
 	<label for="climbingType">Select Climbing Type</label>
-	<select id="climbingType" name="climbingType" ng-model="session.climbingType" ng-options="climbingtype.name for climbingtype in types"></select><br />
+	<select id="climbingType" name="climbingType" ng-model="session.climbingType" ng-options="type for type in types"></select><br />
 
 	<label for="goal">Goal</label>
 	<select id="goal" name="goal" ng-model="session.goal">
@@ -17,14 +17,14 @@
 	</select><br />	
 
 	<label for="projectLevel">Hardest Climb Ever Sended</label>
-	<select id="projectLevel" name="projectLevel" ng-model="session.projectLevel" ng-options="rating for rating in session.climbingType.scale"></select>
+	<select id="projectLevel" name="projectLevel" ng-model="session.projectLevel" ng-options="rating for rating in fullScale()"></select>
 </div>
 
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
 	{{climbs}}
 	<h3 ng-show="remainingPoints()">Remaining Points: {{remainingPoints() | sexypoints}}</h3>
 	<div ng-show="remainingPoints()">
-		{{session.climbingType.name}}
+		{{session.climbingType}}
 		<div class="btn-group">
 			<button class="btn btn-xs btn-default" ng-repeat="rating in climbingScale()" ng-class="{ 'btn-success': $index > climbingScale().indexOf(session.projectLevel) }" ng-click="addTick(rating)">{{rating}}</button>
 		</div>

@@ -18,7 +18,7 @@ angular.module('tt', ['ngResource'])
 		var STORAGE_ID = 'tt-storage';
 		return {
 			get: function () {
-				return JSON.parse(localStorage.getItem(STORAGE_ID) || '{}');
+				return JSON.parse(localStorage.getItem(STORAGE_ID) || null);
 			},
 
 			put: function (state) {
@@ -52,27 +52,33 @@ function calculatePoints(rating, scale, bestClimb) {
 }
 
 function MainCtrl($scope, SessionStorage, ClimbingTypes) {
-	var state = {};
-	_.defaults(state, SessionStorage.get(), {
-		climbingType: ClimbingTypes[0].name,
-		projectLevel: ClimbingTypes[0].scale[0],
-		goal: 50,
-		ticks: []
-	});
+	var state = SessionStorage.get();
+
+	if (!state) {
+		state = {
+			climbingType: ClimbingTypes[0].name,
+			projectLevel: ClimbingTypes[0].scale[0],
+			goal: 50,
+			ticks: []
+		};
+	}
 
 	$scope.session = state;
 	$scope.$watch('session', function (newValue, oldValue) {
-		// STUPID BY REFERENCE MATCH FIX?!
-		state.climbingType = _.find(ClimbingTypes, { name: newValue.climbingType.name });
 		if (newValue.climbingType !== oldValue.climbingType) {
-			newValue.projectLevel = newValue.climbingType.scale[0];
+			newValue.projectLevel = $scope.fullScale()[0];
 		}
 		SessionStorage.put(newValue)
 	}, true);
+
+	$scope.fullScale = function () {
+		return _.find(ClimbingTypes, { name: state.climbingType }).scale;
+	}
 }
 
 function SetupCtrl($scope, ClimbingTypes) {
-	$scope.types = ClimbingTypes;
+	console.log($scope.session.projectLevel);
+	$scope.types = _.map(ClimbingTypes, 'name');
 }
 
 function TicklistCtrl($scope, ClimbingTypes) {
@@ -80,11 +86,13 @@ function TicklistCtrl($scope, ClimbingTypes) {
 	$scope.ticks = state.ticks;
 
 	$scope.climbingScale = function () {
-		var upperBound;
-		upperBound = state.climbingType.scale.indexOf(state.projectLevel) + BONUS_CLIMBS + 1;
-		if (upperBound >= state.climbingType.scale.length) upperBound = state.climbingType.scale.length;
+		var upperBound,
+			scale = _.find(ClimbingTypes, { name: state.climbingType }).scale;
 
-		return state.climbingType.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
+		upperBound = scale.indexOf(state.projectLevel) + BONUS_CLIMBS + 1;
+		if (upperBound >= scale.length) upperBound = scale.length;
+
+		return scale.slice(0, upperBound).slice(-SCALE_LENGTH);
 	};
 
 	$scope.totalPoints = function () {
