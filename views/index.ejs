@@ -32,9 +32,9 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="tick in ticks | reverse">
+				<tr ng-repeat="tick in session.ticks | reverse">
 					<td>{{tick.description}}</td>
-					<td>{{tick.climbingType.name | lowercase}}</td>
+					<td>{{tick.climbingType | lowercase}}</td>
 					<td>{{tick.points | sexypoints}}</td>
 					<td><button class="btn btn-danger btn-xs" ng-click="removeTick(tick)">remove</button></td>
 				</tr>

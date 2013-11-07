@@ -83,7 +83,6 @@ function SetupCtrl($scope, ClimbingTypes) {
 
 function TicklistCtrl($scope, ClimbingTypes) {
 	var state = $scope.session;
-	$scope.ticks = state.ticks;
 
 	$scope.climbingScale = function () {
 		var upperBound,
