@@ -14,14 +14,10 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 			return Math.floor(points * 100);
 		};
 	})
-	.factory('SessionService', function (ClimbingTypes) {
-		var session = {
-			climbingType: ClimbingTypes[0],
-			projectLevel: ClimbingTypes[0].scale[0],
-			goal: 100
-		};
-
-		return session;
+	.service('Session', function (ClimbingTypes) {
+		this.climbingType = ClimbingTypes[0];
+		this.projectLevel = ClimbingTypes[0].scale[0];
+		this.goal = 100;
 	})
 	.service('ClimbingTypes', function () {
 		var vScale = ['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10'];
@@ -48,27 +44,27 @@ function calculatePoints(rating, scale, bestClimb) {
 	return MAX_POINTS - slope * (maxPointIndex - index);
 }
 
-function SetupCtrl($scope, ClimbingTypes, SessionService) {
+function SetupCtrl($scope, ClimbingTypes, Session) {
 	$scope.types = ClimbingTypes;
-	$scope.session = SessionService;
+	$scope.session = Session;
 	$scope.$watch('session.climbingType', function (newValue) {
 		$scope.session.projectLevel = newValue.scale[0];
 	});
 }
 
-function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
+function TicklistCtrl($scope, $localStorage, ClimbingTypes, Session) {
 	var storage = $scope.$storage = $localStorage.$default({
 		ticks: []
 	});
 	
-	$scope.session = SessionService;
+	$scope.session = Session;
 	$scope.climbingScale = function () {
 		var upperBound;
 
-		upperBound = SessionService.climbingType.scale.indexOf(SessionService.projectLevel) + BONUS_CLIMBS + 1;
-		if (upperBound >= SessionService.climbingType.scale.length) upperBound = SessionService.climbingType.scale.length;
+		upperBound = Session.climbingType.scale.indexOf(Session.projectLevel) + BONUS_CLIMBS + 1;
+		if (upperBound >= Session.climbingType.scale.length) upperBound = Session.climbingType.scale.length;
 
-		return SessionService.climbingType.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
+		return Session.climbingType.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
 	};
 
 	$scope.totalPoints = function () {
@@ -80,7 +76,7 @@ function TicklistCtrl($scope, $localStorage, ClimbingTypes, SessionService) {
 	};
 
 	$scope.remainingPoints = function () {
-		var goal = SessionService.goal;
+		var goal = Session.goal;
 		var total = $scope.totalPoints();
 		var remaining = goal - total;
 		return remaining < 0 ? 0 : remaining;
