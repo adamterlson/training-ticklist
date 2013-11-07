@@ -11,6 +11,10 @@ nav .dropdown-menu .close {
   margin-top: -20px;
   margin-right: -15px;
 }
+nav .config-menu {
+  font-size: 20px;
+  margin-top: 15px;
+}
 .climb-entry button {
   width: 80px;
 }

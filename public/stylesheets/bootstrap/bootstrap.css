@@ -1,5 +1,5 @@
 @font-face {
-  font-family: 'Glyphicons Halflings';
+  font-family: 'Dekar';
   src: url('../../fonts/dekar-webfont.eot');
   src: url('../../fonts/dekar-webfont.eot?#iefix') format('embedded-opentype'), url('../../fonts/dekar-webfont.woff') format('woff'), url('../../fonts/dekar-webfont.ttf') format('truetype'), url('../../fonts/dekar-webfont.svg#dekar-webfont') format('svg');
 }
@@ -405,7 +405,7 @@ h6,
 .h4,
 .h5,
 .h6 {
-  font-family: 'Glyphicons Halflings', "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-family: 'Dekar', "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-weight: 500;
   line-height: 1.1;
   color: inherit;

@@ -6,25 +6,19 @@
 		<link rel='stylesheet' href='/stylesheets/bootstrap/bootstrap.css' />
 	</head>
 	<body ng-controller="MainCtrl">
-		<nav class="navbar navbar-top" role="navigation">
+		<nav role="navigation">
 			<div class="container">
-				<!-- Brand and toggle get grouped for better mobile display -->
-				<div class="navbar-header pull-left">
-					<h1>Training Ticklist</h1>
-				</div>
-
-				<!-- Collect the nav links, forms, and other content for toggling -->
-				<div class="navbar-header pull-right">
-					<div class="navbar-brand">
-						<div class="dropdown">
-							<a href="#" class="navbar-btn" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
-							<div class="dropdown-menu">
-								<a href="javascript:void(0)" class="pull-right close">&times;</a>
-								<% include configure.ejs %>
-							</div>
+				
+				<div class="pull-right config-menu">
+					<div class="dropdown">
+						<a href="#" class="navbar-btn" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></a>
+						<div class="dropdown-menu">
+							<a href="javascript:void(0)" class="pull-right close">&times;</a>
+							<% include configure.ejs %>
 						</div>
 					</div>
 				</div>
+				<h1>Training Ticklist</h1>
 			</div>
 		</nav>
 		<%- body %>
