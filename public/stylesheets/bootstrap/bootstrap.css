@@ -1917,6 +1917,7 @@ textarea.input-lg {
 }
 .btn {
   display: inline-block;
+  font-family: 'Dekar', "Helvetica Neue", Helvetica, Arial, sans-serif;
   margin-bottom: 0;
   font-weight: normal;
   text-align: center;

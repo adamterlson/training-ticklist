@@ -32,7 +32,7 @@ angular.module('tt', ['ngResource'])
 		var climbingTypes = [
 			{ name: 'top rope', scale: yosemiteScale },
 			{ name: 'sport', scale: yosemiteScale },
-			{ name: 'bouldering', scale: vScale }
+			{ name: 'boulder', scale: vScale }
 		];
 
 		return climbingTypes;
@@ -61,6 +61,11 @@ function MainCtrl($scope, SessionStorage, ClimbingTypes) {
 			goal: 50,
 			ticks: []
 		};
+	}
+
+	$scope.showConfigMenu = function () {
+		$('.config-menu .dropdown').addClass('open');
+		alert(1);
 	}
 
 	$scope.session = state;
@@ -127,3 +132,10 @@ function TicklistCtrl($scope, ClimbingTypes) {
 		state.ticks.splice(state.ticks.indexOf(tick), 1);
 	};
 }
+
+$(document).ready(function () {
+	$('.open-config').click(function (e) {
+		$('.config-menu .dropdown-menu').dropdown('toggle');
+		return false;
+	});
+})
