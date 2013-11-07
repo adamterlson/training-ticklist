@@ -47,7 +47,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="tick in $storage.ticks | reverse">
+				<tr ng-repeat="tick in ticks | reverse">
 					<td>{{tick.description}}</td>
 					<td>{{tick.climbingType.name | lowercase}}</td>
 					<td>{{tick.points | sexypoints}}</td>

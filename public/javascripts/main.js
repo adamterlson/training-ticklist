@@ -3,7 +3,7 @@ var SCALE_LENGTH = 7,
 	MAX_POINTS = 10;
 
 
-angular.module('tt', ['ngResource', 'ngStorage'])
+angular.module('tt', ['ngResource'])
 	.filter('reverse', function() {
 		return function(items) {
 			return items.slice().reverse();
@@ -14,10 +14,17 @@ angular.module('tt', ['ngResource', 'ngStorage'])
 			return Math.floor(points * 100);
 		};
 	})
-	.service('Session', function (ClimbingTypes) {
-		this.climbingType = ClimbingTypes[0];
-		this.projectLevel = ClimbingTypes[0].scale[0];
-		this.goal = 100;
+	.factory('SessionStorage', function () {
+		var STORAGE_ID = 'tt-storage';
+		return {
+			get: function () {
+				return JSON.parse(localStorage.getItem(STORAGE_ID) || '{}');
+			},
+
+			put: function (state) {
+				localStorage.setItem(STORAGE_ID, JSON.stringify(state));
+			}
+		};
 	})
 	.service('ClimbingTypes', function () {
 		var vScale = ['VB', 'V0', 'V1', 'V2', 'V3', 'V4', 'V5', 'V6', 'V7', 'V8', 'V9', 'V10'];
@@ -44,59 +51,72 @@ function calculatePoints(rating, scale, bestClimb) {
 	return MAX_POINTS - slope * (maxPointIndex - index);
 }
 
-function SetupCtrl($scope, ClimbingTypes, Session) {
-	$scope.types = ClimbingTypes;
-	$scope.session = Session;
-	$scope.$watch('session.climbingType', function (newValue) {
-		$scope.session.projectLevel = newValue.scale[0];
-	});
-}
-
-function TicklistCtrl($scope, $localStorage, ClimbingTypes, Session) {
-	var storage = $scope.$storage = $localStorage.$default({
+function MainCtrl($scope, SessionStorage, ClimbingTypes) {
+	var state = {};
+	_.defaults(state, SessionStorage.get(), {
+		climbingType: ClimbingTypes[0].name,
+		projectLevel: ClimbingTypes[0].scale[0],
+		goal: 50,
 		ticks: []
 	});
-	
-	$scope.session = Session;
+
+	$scope.session = state;
+	$scope.$watch('session', function (newValue, oldValue) {
+		// STUPID BY REFERENCE MATCH FIX?!
+		state.climbingType = _.find(ClimbingTypes, { name: newValue.climbingType.name });
+		if (newValue.climbingType !== oldValue.climbingType) {
+			newValue.projectLevel = newValue.climbingType.scale[0];
+		}
+		SessionStorage.put(newValue)
+	}, true);
+}
+
+function SetupCtrl($scope, ClimbingTypes) {
+	$scope.types = ClimbingTypes;
+}
+
+function TicklistCtrl($scope, ClimbingTypes) {
+	var state = $scope.session;
+	$scope.ticks = state.ticks;
+
 	$scope.climbingScale = function () {
 		var upperBound;
+		upperBound = state.climbingType.scale.indexOf(state.projectLevel) + BONUS_CLIMBS + 1;
+		if (upperBound >= state.climbingType.scale.length) upperBound = state.climbingType.scale.length;
 
-		upperBound = Session.climbingType.scale.indexOf(Session.projectLevel) + BONUS_CLIMBS + 1;
-		if (upperBound >= Session.climbingType.scale.length) upperBound = Session.climbingType.scale.length;
-
-		return Session.climbingType.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
+		return state.climbingType.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
 	};
 
 	$scope.totalPoints = function () {
 		var sum = 0;
-		storage.ticks.forEach(function (tick) {
+		state.ticks.forEach(function (tick) {
 			sum += tick.points;
 		});
 		return sum;
 	};
 
 	$scope.remainingPoints = function () {
-		var goal = Session.goal;
+		var goal = state.goal;
 		var total = $scope.totalPoints();
 		var remaining = goal - total;
 		return remaining < 0 ? 0 : remaining;
 	};
 
 	$scope.newList = function () {
-		storage.ticks = [];
+		state.ticks = [];
 	};
 
 	$scope.addTick = function (rating) {
 		if (!rating) return;
 
-		storage.ticks.push({ 
+		state.ticks.push({ 
 			description: rating, 
-			climbingType: $scope.session.climbingType, 
-			points: calculatePoints(rating, $scope.climbingScale(), $scope.session.projectLevel)
+			climbingType: state.climbingType, 
+			points: calculatePoints(rating, $scope.climbingScale(), state.projectLevel)
 		});
 	};
 
 	$scope.removeTick = function (tick) {
-		storage.ticks.splice(storage.ticks.indexOf(tick), 1);
+		state.ticks.splice(state.ticks.indexOf(tick), 1);
 	};
 }
