@@ -5,6 +5,16 @@ body {
 a {
   color: #00B7FF;
 }
+nav .dropdown-menu {
+  right: 0;
+  left: auto;
+  padding: 20px;
+  width: 250px;
+}
+nav .dropdown-menu .close {
+  margin-top: -20px;
+  margin-right: -15px;
+}
 /* 
   Allow angular.js to be loaded in body, hiding cloaked elements until 
   templates compile.  The !important is important given that there may be 

@@ -1,25 +1,3 @@
-<div ng-controller="SetupCtrl" ng-cloak class="ng-cloak">
-	<label for="climbingType">Select Climbing Type</label>
-	<select id="climbingType" name="climbingType" ng-model="session.climbingType" ng-options="type for type in types"></select><br />
-
-	<label for="goal">Goal</label>
-	<select id="goal" name="goal" ng-model="session.goal">
-		<option value="10">{{ 10 | sexypoints }}</option>
-		<option value="20">{{ 20 | sexypoints }}</option>
-		<option value="30">{{ 30 | sexypoints }}</option>
-		<option value="40">{{ 40 | sexypoints }}</option>
-		<option value="50">{{ 50 | sexypoints }}</option>
-		<option value="60">{{ 60 | sexypoints }}</option>
-		<option value="70">{{ 70 | sexypoints }}</option>
-		<option value="80">{{ 80 | sexypoints }}</option>
-		<option value="90">{{ 90 | sexypoints }}</option>
-		<option value="100">{{ 100 | sexypoints }}</option>
-	</select><br />	
-
-	<label for="projectLevel">Hardest Climb Ever Sended</label>
-	<select id="projectLevel" name="projectLevel" ng-model="session.projectLevel" ng-options="rating for rating in fullScale()"></select>
-</div>
-
 <div ng-controller="TicklistCtrl" ng-cloak class="ng-cloak">
 	{{climbs}}
 	<h3 ng-show="remainingPoints()">Remaining Points: {{remainingPoints() | sexypoints}}</h3>
