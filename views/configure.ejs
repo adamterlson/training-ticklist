@@ -6,12 +6,12 @@
 			<form>
 				<div class="form-group">
 					<label for="climbingType">Select Climbing Type</label>
-					<select id="climbingType" class="form-control" name="climbingType" ng-model="session.climbingType" ng-options="type for type in types"></select>
+					<select id="climbingType" class="form-control" name="climbingType" ng-model="state.climbingType" ng-options="type for type in types"></select>
 				</div>
 				
 				<div class="form-group">
 				<label for="goal">Goal</label>
-					<select id="goal" class="form-control" name="goal" ng-model="session.goal">
+					<select id="goal" class="form-control" name="goal" ng-model="state.goal">
 						<option value="10">{{ 10 | sexypoints }}</option>
 						<option value="20">{{ 20 | sexypoints }}</option>
 						<option value="30">{{ 30 | sexypoints }}</option>
@@ -27,7 +27,7 @@
 
 				<div class="form-group">
 					<label for="projectLevel">Hardest Climb Ever Sended</label>
-					<select id="projectLevel" class="form-control" name="projectLevel" ng-model="session.projectLevel" ng-options="rating for rating in fullScale()"></select>
+					<select id="projectLevel" class="form-control" name="projectLevel" ng-model="state.projectLevel" ng-options="rating for rating in fullScale()"></select>
 				</div>
 			</form>
 		</div>

@@ -1,5 +1,5 @@
 tt.controller('TicklistCtrl', function TicklistCtrl($scope, ClimbingTypes) {
-	var state = $scope.session;
+	var state = $scope.state;
 
 	$scope.climbingScale = function () {
 		var upperBound,

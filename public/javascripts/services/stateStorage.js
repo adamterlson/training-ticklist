@@ -1,4 +1,4 @@
-tt.factory('SessionStorage', function () {
+tt.factory('StateStorage', function () {
 	var STORAGE_ID = 'tt-storage';
 	return {
 		get: function () {
