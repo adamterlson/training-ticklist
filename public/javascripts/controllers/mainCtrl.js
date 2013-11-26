@@ -10,11 +10,6 @@ tt.controller('MainCtrl', function MainCtrl($scope, SessionStorage, ClimbingType
 		};
 	}
 
-	$scope.showConfigMenu = function () {
-		$('.config-menu .dropdown').addClass('open');
-		alert(1);
-	}
-
 	$scope.session = state;
 	$scope.$watch('session', function (newValue, oldValue) {
 		if (newValue.climbingType !== oldValue.climbingType) {
