@@ -21,7 +21,10 @@
 		</div>
 	</div>
 	<div class="container" ng-show="totalPoints()">
-		<h3>Climbs ({{session.ticks.length}}):</h3>
+		<h3>
+			Climbs ({{session.ticks.length}}): 
+			<button class="btn btn-link" ng-click="newList()">reset</button>
+		</h3>
 		<table class="table">
 			<thead>
 				<tr>
