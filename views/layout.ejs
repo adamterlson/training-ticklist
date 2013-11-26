@@ -8,20 +8,13 @@
 	<body ng-controller="MainCtrl">
 		<nav role="navigation">
 			<div class="container">
-				
-				<div class="pull-right config-menu">
-					<div class="dropdown">
-						<button class="btn btn-link btn-lg navbar-btn" class="dropdown-toggle" data-toggle="dropdown"><span class="glyphicon glyphicon-cog"></span></button>
-						<div class="dropdown-menu">
-							<a href="javascript:void(0)" class="pull-right close">&times;</a>
-							<% include configure.ejs %>
-						</div>
-					</div>
-				</div>
+				<% include configure.ejs %>
 				<h1>Training Ticklist</h1>
 			</div>
 		</nav>
-		<%- body %>
+		<div ng-cloak class="ng-cloak">
+			<%- body %>
+		</div>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.2.1/lodash.backbone.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="/javascripts/lib/bootstrap.js"></script>

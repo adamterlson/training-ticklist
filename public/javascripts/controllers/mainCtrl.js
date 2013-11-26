@@ -1,16 +1,12 @@
 tt.controller('MainCtrl', function MainCtrl($scope, SessionStorage, ClimbingTypes) {
-	var state = SessionStorage.get();
+	var state = $scope.session = _.defaults(SessionStorage.get() || {}, {
+		climbingType: ClimbingTypes[0].name,
+		projectLevel: ClimbingTypes[0].scale[0],
+		goal: 50,
+		ticks: [],
+		mode: 'free'
+	});
 
-	if (!state) {
-		state = {
-			climbingType: ClimbingTypes[0].name,
-			projectLevel: ClimbingTypes[0].scale[0],
-			goal: 50,
-			ticks: []
-		};
-	}
-
-	$scope.session = state;
 	$scope.$watch('session', function (newValue, oldValue) {
 		if (newValue.climbingType !== oldValue.climbingType) {
 			newValue.projectLevel = $scope.fullScale()[0];
