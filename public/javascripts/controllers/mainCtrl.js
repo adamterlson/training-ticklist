@@ -4,7 +4,7 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes)
 		projectLevel: ClimbingTypes[0].scale[0],
 		goal: 50,
 		ticks: [],
-		mode: 'free'
+		program: 'free'
 	});
 
 	$scope.$watch('state', function (newValue, oldValue) {

@@ -6,8 +6,19 @@
 				<button class="btn btn-default" ng-click="newList()">Go Again</button>
 			</h2>
 		</div>
-		<div class="text-center" ng-show="remainingPoints()">
-			<h2>{{remainingPoints() | sexypoints}}</h2>
+		<div class="text-center clearfix" ng-show="remainingPoints()">
+			<div class="info">
+				<div class="desc">Remaining Points</div>
+				<h2>{{remainingPoints() | sexypoints}}</h2>
+			</div>
+			<div class="info">
+				<div class="desc">Est. Time Remaining</div>
+				<h2>60:00:20</h2>
+			</div>
+			<div class="info">
+				<div class="desc">Program</div>
+				<h2>{{state.program}}</h2>
+			</div>
 		</div>
 	</div>
 	<div class="action-container">
