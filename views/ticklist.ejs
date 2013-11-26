@@ -46,7 +46,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr ng-repeat="tick in state.ticks | reverse">
+				<tr ng-repeat="tick in state.ticks | reverse track by $index ">
 					<td>{{tick.description}}</td>
 					<td>{{tick.climbingType | lowercase}}</td>
 					<td>{{tick.points | sexypoints}}</td>
