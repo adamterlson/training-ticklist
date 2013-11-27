@@ -33,6 +33,11 @@ tt.controller('TicklistCtrl', function TicklistCtrl($scope, ClimbingTypes) {
 	$scope.addTick = function (rating) {
 		if (!rating) return;
 
+		var scale = $scope.climbingScale();
+		if (scale.indexOf(state.projectLevel) < scale.indexOf(rating)) {
+			state.projectLevel = rating;
+		}
+
 		state.ticks.push({ 
 			description: rating, 
 			climbingType: state.climbingType, 
