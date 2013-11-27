@@ -1,10 +1,10 @@
 <div ng-controller="TicklistCtrl">
 	<div class="score-container"  ng-class="{ 'complete': !remainingPoints() }">
 		<div class="text-center" ng-hide="remainingPoints()">
-			<h2>
+			<h1>
 				Good work!  You completed your workout!
 				<button class="btn btn-default" ng-click="newList()">Go Again</button>
-			</h2>
+			</h1>
 		</div>
 		<div class="text-center clearfix" ng-show="remainingPoints()">
 			<div class="info">
