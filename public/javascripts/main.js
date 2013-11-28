@@ -11,12 +11,17 @@ var tt = angular.module('tt', ['ui.router', 'ui.bootstrap'])
 				templateUrl: 'partials/free',
 				controller: 'FreeModeCtrl'
 			})
-			.state('free', {
+			.state('mode', {
+				url: '/mode',
+				templateUrl: 'partials/free',
+				controller: 'FreeModeCtrl'
+			})
+			.state('mode.free', {
 				url: '/free',
 				templateUrl: 'partials/free',
 				controller: 'FreeModeCtrl'
 			})
-			.state('guided', {
+			.state('mode.guided', {
 				url: '/guided',
 				templateUrl: 'partials/guided',
 				controller: 'GuidedModeCtrl'
