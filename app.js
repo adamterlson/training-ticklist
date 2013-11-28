@@ -28,15 +28,6 @@ if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
 
-var ExpressREST = require('./lib/express-rest'),
-    data = [],
-
-    myCollection = new ExpressREST.Collection(data),
-    myProvider = new ExpressREST.Provider({ collection: myCollection }),
-    myController = new ExpressREST.Controller({ provider: myProvider });
-
-myController.bind(app, '/api/ticks');
-
 app.get('/', routes.index);
 
 http.createServer(app).listen(app.get('port'), function(){
