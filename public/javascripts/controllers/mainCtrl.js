@@ -17,4 +17,9 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes)
 	$scope.fullScale = function () {
 		return _.find(ClimbingTypes, { name: state.climbingType }).scale;
 	}
+
+	$scope.openConfig = function (e, $event) {
+		e.stopPropagation();
+		$('#configure-menu .dropdown-toggle').click();
+	}
 });

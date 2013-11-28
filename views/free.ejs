@@ -24,7 +24,7 @@
 	<div class="action-container">
 		<div class="container text-center">
 			<div ng-show="remainingPoints()">
-				<h3>{{state.climbingType}} climbing <button class="btn btn-link open-config">change</button></h3>
+				<h3>{{state.climbingType}} climbing <button class="btn btn-link open-config" ng-click="openConfig($event)">change</button></h3>
 				<div class="btn-group climb-entry">
 					<button class="btn btn-primary" ng-repeat="rating in climbingScale()" ng-class="{ 'btn-success': $index > climbingScale().indexOf(state.projectLevel) }" ng-click="addTick(rating)">{{rating}}</button>
 				</div>

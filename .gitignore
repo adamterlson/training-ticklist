@@ -2,3 +2,5 @@ node_modules
 *.log
 .DS_STORE
 *.css
+bower_components
+public/javascripts/lib

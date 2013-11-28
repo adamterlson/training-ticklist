@@ -20,5 +20,9 @@
     "url": "https://github.com/adamterlson/training-ticklist.git"
   },
   "author": "",
-  "license": "BSD"
+  "license": "BSD",
+  "devDependencies": {
+    "grunt-bower-task": "~0.3.4",
+    "grunt": "~0.4.2"
+  }
 }
