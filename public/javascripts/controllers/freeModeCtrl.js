@@ -1,4 +1,4 @@
-tt.controller('TicklistCtrl', function TicklistCtrl($scope, ClimbingTypes) {
+tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	var state = $scope.state;
 
 	$scope.climbingScale = function () {

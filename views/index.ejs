@@ -1,6 +1,9 @@
 <div ng-if="state.program == 'free'">
-	<% include ticklist.ejs %>
+	<% include free.ejs %>
 </div>
-<div ng-if="state.program != 'free'">
+<div ng-if="state.program == 'guided'">
 	<% include guided.ejs %>
+</div>
+<div ng-if="state.program == 'timed'">
+	Timed
 </div>
