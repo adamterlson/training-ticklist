@@ -10,12 +10,15 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		}
 	];
 
+	var ProgramDefaults = {
+		scale: ClimbingTypes[0].scale,
+		restTimer: true,
+		restTime: 30,
+		totalClimbs: 4
+	};
+
 	var Program = function (options) {
-		this.options = {
-			scale: ClimbingTypes[0].scale,
-			restTime: 30,
-			totalClimbs: 2
-		};
+		this.options = _.defaults(options || {}, ProgramDefaults);
 
 		this.completedClimbs = [];
 
@@ -38,9 +41,6 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 				this.current = this.options.scale[this.options.scale.indexOf(this.current) + 1];
 			}
 			if (!this.current || this.completedClimbs.length >= this.options.totalClimbs) {
-				console.log('finishing');
-				console.log()
-				console.log(this);
 				this.finished = true;
 				dfd.reject();
 			}
@@ -71,7 +71,12 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 
 		rest: function (time) {
 			this.resting = $q.defer();
-			$timeout(this.resting.resolve, this.options.restTime * 1000);
+			if (this.options.restTimer) {
+				$timeout(this.resting.resolve, this.options.restTime * 1000);
+			}
+			else {
+				this.resting.resolve();
+			}
 
 			this.resting.promise.then(function () {
 				this.resting = null;
@@ -120,8 +125,8 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		}
 	};
 	return {
-		get: function (type) {
-			return new Program(); //_.extend({}, base, types[type]);
+		get: function (options) {
+			return new Program(options); //_.extend({}, base, types[type]);
 		}
 	}
 });

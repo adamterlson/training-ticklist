@@ -8,7 +8,7 @@
 	<div class="text-center clearfix" ng-if="!program.finished">
 		<div class="info">
 			<div class="desc">Remaining Climbs</div>
-			<h2>{{program.options.totalClimbs - program.completedClimbs.length }}</h2>
+			<h2>{{program.options.totalClimbs - program.completedClimbs.length - 1 }}</h2>
 		</div>
 		<div class="info">
 			<div class="desc">Est. Time Remaining</div>
@@ -18,19 +18,23 @@
 			<div class="desc">Program</div>
 			<h2>{{state.program}}</h2>
 		</div>
+		<div class="info">
+			<div class="desc">Rest Timer</div>
+			<h2><button class="btn btn-link" ng-click="program.options.restTimer = !program.options.restTimer">{{program.options.restTimer ? 'enabled' : 'disabled' }}</button></h2>
+		</div>
 	</div>
 </div>
 <div class="text-center" ng-if="!program.finished">
-	<div ng-if="!program.resting || !state.timer">
+	<div ng-if="!program.resting">
 		<hgroup>
 			<h4>It's time to climb!</h4>
 			<h2>{{program.current}}</h2>
 		</hgroup>
-		<button class="btn btn-primary" ng-click="program.complete()">Sended!</button>
+		<button class="btn btn-primary" ng-click="program.complete()">Sended</button>
 		<button class="btn btn-link btn-xs" ng-click="program.tooTired()">Too Tired</button>
 		<button class="btn btn-link btn-xs" ng-click="program.tooHard()">Too Hard</button>
 	</div>
-	<div ng-if="program.resting && state.timer">
+	<div ng-if="program.resting">
 		<hgroup>
 			<h4>It's time to rest!</h4>
 			<h2><timer seconds="{{program.options.restTime}}"></timer></h2>

@@ -5,11 +5,13 @@ tt.controller('GuidedModeCtrl', function GuidedModeCtrl($scope, ClimbingTypes, P
 
 	var type = 'linear';
 
-	$scope.program = Programs.get(type);
+	var options = {
+		type: type
+	};
+
+	$scope.program = Programs.get(options);
 
 	$scope.reset = function () {
-		console.log($scope.program);
-		$scope.program = Programs.get(type);
-		console.log($scope.program);
+		$scope.program = Programs.get(options);
 	}
 });

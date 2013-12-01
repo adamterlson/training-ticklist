@@ -8,10 +8,6 @@
 					<label for="program">Program</label>
 					<select id="program" class="form-control" name="program" ng-model="state.program" ng-options="program for program in programs"></select>
 				</div>
-				<div ng-if="state.program != 'free'">
-					<label for="timer">Rest Timer</label>
-					<input type="checkbox" name="timer" id="timer" ng-model="state.timer"></select>
-				</div>
 				<div ng-if="state.program == 'free'">
 					<div class="form-group">
 						<label for="goal">Goal</label>
