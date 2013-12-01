@@ -1,1 +1,40 @@
-Guided mode
+<div class="info-container"  ng-class="{ 'complete': program.climbs.length == program.complete.length }">
+	<div class="text-center" ng-if="program.climbs.length == program.complete.length">
+		<h1>
+			Good work!  You completed your workout!
+			<button class="btn btn-default" ng-click="program.reset()">Go Again</button>
+		</h1>
+	</div>
+	<div class="text-center clearfix" ng-if="program.climbs.length > program.complete.length">
+		<div class="info">
+			<div class="desc">Remaining Climbs</div>
+			<h2>{{program.climbs.length - program.complete.length - 1 }}</h2>
+		</div>
+		<div class="info">
+			<div class="desc">Est. Time Remaining</div>
+			<h2><timer seconds="5" /></h2>
+		</div>
+		<div class="info">
+			<div class="desc">Program</div>
+			<h2>{{state.program}}</h2>
+		</div>
+	</div>
+</div>
+<div class="text-center" ng-if="program.climbs.length > program.complete.length">
+	<div ng-if="!program.resting || !state.timer">
+		<hgroup>
+			<h4>It's time to climb!</h4>
+			<h2>{{program.climbs[program.progressIndex]}}</h2>
+		</hgroup>
+		<button class="btn btn-primary" ng-click="program.sended()">Sended!</button>
+		<button class="btn btn-link btn-xs" ng-click="program.tooTired()">Too Tired</button>
+		<button class="btn btn-link btn-xs" ng-click="program.tooHard()">Too Hard</button>
+	</div>
+	<div ng-if="program.resting && state.timer">
+		<hgroup>
+			<h4>It's time to rest!</h4>
+			<h2><timer seconds="{{program.restTime}}"></timer></h2>
+		</hgroup>
+		<button class="btn btn-link" ng-click="program.ready()">I'm ready</button>
+	</div>
+</div>

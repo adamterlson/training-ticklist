@@ -1,6 +1,8 @@
 tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	var state = $scope.state;
 
+	state.program = 'free';
+
 	$scope.climbingScale = function () {
 		var upperBound,
 			scale = _.find(ClimbingTypes, { name: state.climbingType }).scale;

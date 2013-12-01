@@ -8,8 +8,7 @@ var tt = angular.module('tt', ['ui.router', 'ui.bootstrap'])
 		$stateProvider
 			.state('root', {
 				url: '',
-				templateUrl: 'partials/free',
-				controller: 'FreeModeCtrl'
+				controller: 'MainCtrl'
 			})
 			.state('free', {
 				url: '/free',
