@@ -1,3 +1,5 @@
+@import "bootstrap/bootstrap.less";
+
 a {
   color: #00B7FF;
 }
@@ -29,24 +31,15 @@ nav {
 
 .info-container {
 	background-color: #dff0d8;
-	height: 100px;
-
-	h1 {
-		line-height: 100px;
-		margin: 0;
-	}
 
 	.info {
 		color: #8EC447;
-		margin-top: -20px;
 		display: inline-block;
-		padding: 20px 0;
-		margin: 0 20px;
-		min-width: 110px;
+		padding: 10px;
 
 		h2 {
-			padding: 0 0 10px 0;
 			margin: 0;
+			font-size: 20px;
 		}
 
 		.desc {
@@ -58,9 +51,21 @@ nav {
 
 .info-container.complete {
 	background-color: #8EC447;
+	padding: 10px 0;
 
 	h2 {
 		color: #dff0d8;
+	}
+}
+
+@media (min-width: @screen-sm-min) { 
+	.info-container .info {
+		min-width: 110px;
+		
+		h2 {
+			font-size: 30px;
+			padding: 0 0 10px 0;
+		}
 	}
 }
 
