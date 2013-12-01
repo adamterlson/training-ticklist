@@ -1,15 +1,6 @@
-tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
-	var climbs = [
-		{
-			difficultyRating: 0,
-			label: 'VB'
-		},
-		{
-			difficultyRating: 1,
-			label: 'V1'
-		}
-	];
 
+
+tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 	var ProgramDefaults = {
 		scale: ClimbingTypes[0].scale,
 		restTimer: true,
@@ -33,14 +24,10 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 
 		stage: function () {
 			var dfd = $q.defer();
-
-			if (!this.current) {
-				this.current = this.options.scale[0];
-			}
-			else {
-				this.current = this.options.scale[this.options.scale.indexOf(this.current) + 1];
-			}
-			if (!this.current || this.completedClimbs.length >= this.options.totalClimbs) {
+			
+			this.current = this.next();
+			
+			if (this.completedClimbs.length >= this.options.totalClimbs) {
 				this.finished = true;
 				dfd.reject();
 			}
@@ -48,6 +35,20 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 			dfd.resolve();
 
 			return dfd.promise;
+		},
+
+		next: function () {
+			if (!this.current) {
+				return {
+					label: this.options.scale[0],
+					difficulty: 0
+				};
+			}
+			var nextScaleIndex = this.options.scale.indexOf(this.current.difficulty) + 1;
+			return {
+				label: this.options.scale[nextScaleIndex],
+				difficulty: nextScaleIndex
+			};
 		},
 
 		climb: function () {
@@ -60,9 +61,7 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		},
 
 		log: function (climb) {
-			this.completedClimbs.push({
-				label: climb
-			});
+			this.completedClimbs.push(climb);
 		},
 
 		complete: function () {
@@ -90,40 +89,6 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		}
 	});
 
-
-	var base = {
-		complete: [],
-		progressIndex: 0,
-		resting: false,
-		sended: function () {
-			this.complete.push(this.climbs[this.progressIndex++]);
-			this.resting = true;
-			var that = this;
-			$timeout(function () {
-				that.resting = false;
-			}, this.restTime * 1000);
-		},
-		tooTired: function () {
-			this.sended();
-		},
-		tooHard: function () {
-			this.sended();
-		},
-		reset: function () {
-			this.resting = false;
-			this.complete.length = 0;
-			this.progressIndex = 0;
-		},
-		ready: function () {
-			this.resting = false;
-		}
-	};
-	var types = {
-		linear: {
-			climbs: ['V1', 'V2', 'V3'],
-			restTime: 30
-		}
-	};
 	return {
 		get: function (options) {
 			return new Program(options); //_.extend({}, base, types[type]);
