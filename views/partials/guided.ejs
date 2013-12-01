@@ -1,14 +1,14 @@
-<div class="info-container"  ng-class="{ 'complete': program.climbs.length == program.complete.length }">
-	<div class="text-center" ng-if="program.climbs.length == program.complete.length">
+<div class="info-container"  ng-class="{ 'complete': program.finished }">
+	<div class="text-center" ng-if="program.finished">
 		<h1>
 			Good work!  You completed your workout!
-			<button class="btn btn-default" ng-click="program.reset()">Go Again</button>
+			<button class="btn btn-default" ng-click="reset()">Go Again</button>
 		</h1>
 	</div>
-	<div class="text-center clearfix" ng-if="program.climbs.length > program.complete.length">
+	<div class="text-center clearfix" ng-if="!program.finished">
 		<div class="info">
 			<div class="desc">Remaining Climbs</div>
-			<h2>{{program.climbs.length - program.complete.length - 1 }}</h2>
+			<h2>{{program.options.totalClimbs - program.completedClimbs.length }}</h2>
 		</div>
 		<div class="info">
 			<div class="desc">Est. Time Remaining</div>
@@ -20,21 +20,21 @@
 		</div>
 	</div>
 </div>
-<div class="text-center" ng-if="program.climbs.length > program.complete.length">
+<div class="text-center" ng-if="!program.finished">
 	<div ng-if="!program.resting || !state.timer">
 		<hgroup>
 			<h4>It's time to climb!</h4>
-			<h2>{{program.climbs[program.progressIndex]}}</h2>
+			<h2>{{program.current}}</h2>
 		</hgroup>
-		<button class="btn btn-primary" ng-click="program.sended()">Sended!</button>
+		<button class="btn btn-primary" ng-click="program.complete()">Sended!</button>
 		<button class="btn btn-link btn-xs" ng-click="program.tooTired()">Too Tired</button>
 		<button class="btn btn-link btn-xs" ng-click="program.tooHard()">Too Hard</button>
 	</div>
 	<div ng-if="program.resting && state.timer">
 		<hgroup>
 			<h4>It's time to rest!</h4>
-			<h2><timer seconds="{{program.restTime}}"></timer></h2>
+			<h2><timer seconds="{{program.options.restTime}}"></timer></h2>
 		</hgroup>
-		<button class="btn btn-link" ng-click="program.ready()">I'm ready</button>
+		<button class="btn btn-link" ng-click="program.rested()">I'm ready</button>
 	</div>
 </div>
