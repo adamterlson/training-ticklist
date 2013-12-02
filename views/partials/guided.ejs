@@ -1,7 +1,8 @@
-<div class="progress" ng-if="!program.finished">
-  <div class="progress-bar progress-bar-primary" role="progressbar" aria-valuenow="{{program.completedClimbs.length/program.options.totalClimbs}}" aria-valuemin="0" aria-valuemax="1" style="width: {{(program.completedClimbs.length/program.options.totalClimbs)*100}}%">
-    <span class="sr-only">40% Complete (success)</span>
-  </div>
+<div class="progress-container">
+	<div class="progress progress-xs" ng-if="!program.finished">
+		<div class="progress-bar progress-bar-primary text-right" role="progressbar" aria-valuenow="{{program.completedClimbs.length/program.options.totalClimbs}}" aria-valuemin="0" aria-valuemax="1" style="width: {{(program.completedClimbs.length/program.options.totalClimbs)*100}}%">
+		</div>
+	</div>
 </div>
 <section class="info-container text-center complete" ng-if="program.finished">
 	<h1>
@@ -43,7 +44,7 @@
 		</div>
 		<div class="info">
 			<div class="desc">Rest Timer</div>
-			<h2><button class="btn btn-link" ng-click="program.options.restTimer = !program.options.restTimer">{{program.options.restTimer ? 'enabled' : 'disabled' }}</button></h2>
+			<h2><a href="javascript:void(0);" ng-click="program.options.restTimer = !program.options.restTimer">{{program.options.restTimer ? 'enabled' : 'disabled' }}</a></h2>
 		</div>
 	</div>
 </section>
