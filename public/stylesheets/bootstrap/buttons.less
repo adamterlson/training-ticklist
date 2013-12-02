@@ -96,20 +96,20 @@
   }
   &,
   &:hover,
-  &:focus,
   &:active {
     border-color: transparent;
   }
-  &:hover,
-  &:focus {
+  &:hover{
     color: @link-hover-color;
     text-decoration: underline;
     background-color: transparent;
   }
+  &:focus{
+    color: @link-color;
+  }
   &[disabled],
   fieldset[disabled] & {
-    &:hover,
-    &:focus {
+    &:hover{
       color: @btn-link-disabled-color;
       text-decoration: none;
     }

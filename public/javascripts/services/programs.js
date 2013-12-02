@@ -1,5 +1,3 @@
-
-
 tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 	var ProgramDefaults = {
 		scale: ClimbingTypes[0].scale,
@@ -44,7 +42,7 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 					difficulty: 0
 				};
 			}
-			var nextScaleIndex = this.options.scale.indexOf(this.current.difficulty) + 1;
+			var nextScaleIndex = this.current.difficulty + 1;
 			return {
 				label: this.options.scale[nextScaleIndex],
 				difficulty: nextScaleIndex
