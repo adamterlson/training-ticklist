@@ -25,10 +25,11 @@
 			<h4>It's time to rest!</h4>
 			<h2><timer seconds="{{program.options.restTime}}"></timer></h2>
 		</hgroup>
-		<button class="btn btn-link" ng-click="program.rested()">I'm ready</button>
+		<button class="btn btn-link" ng-click="program.rested()">I'm ready</button><br /><br />
+		Rest Timer: <a href="javascript:void(0);" ng-click="program.options.restTimer = !program.options.restTimer">{{program.options.restTimer ? 'enabled' : 'disabled' }}</a>
 	</div>
 </section>
-<section class="container info-container" ng-if="!program.finished">
+<div class="info-container fixed-bottom" ng-if="!program.finished">
 	<div class="text-center clearfix">
 		<div class="info">
 			<div class="desc">Remaining Climbs</div>
@@ -42,9 +43,5 @@
 			<div class="desc">Program</div>
 			<h2>{{state.program}}</h2>
 		</div>
-		<div class="info">
-			<div class="desc">Rest Timer</div>
-			<h2><a href="javascript:void(0);" ng-click="program.options.restTimer = !program.options.restTimer">{{program.options.restTimer ? 'enabled' : 'disabled' }}</a></h2>
-		</div>
 	</div>
-</section>
+</div>

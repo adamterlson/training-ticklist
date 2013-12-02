@@ -1,5 +1,9 @@
 @import "bootstrap/bootstrap.less";
 
+body {
+	padding-top: 10px;
+}
+
 section {
 	padding: 10px 0;
 }
@@ -42,7 +46,7 @@ hgroup {
 }
 
 nav {
-	font-size: 10px;
+	font-size: 14px;
 	display: inline-block;
 	ul {
 		margin: 0;
@@ -50,7 +54,7 @@ nav {
 	a {
 		line-height: 40px;
 		display: inline-block;
-		width: 40px;
+		width: 60px;
 		text-align: center;
 
 	}
@@ -112,6 +116,13 @@ nav {
 	h1, h2 {
 		color: #dff0d8;
 	}
+}
+
+.fixed-bottom {
+	position: fixed;
+	bottom: 0;
+	left: 0;
+	right: 0;
 }
 
 @media (min-width: @screen-sm-min) { 
