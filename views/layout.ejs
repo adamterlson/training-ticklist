@@ -9,13 +9,20 @@
 		<link rel='stylesheet' href='/stylesheets/style.css' />
 	</head>
 	<body ng-controller="MainCtrl">
-		<nav role="navigation">
+		<header>
 			<div class="container">
 				<% include configure.ejs %>
 				<h1>Training Ticklist</h1>
 			</div>
-		</nav>
+		</header>
 		<%- body %>
+		<div class="container">
+		<nav role="navigation" class="row" role="navigation">
+			<div class="col-xs-4 text-center" ng-class="{ 'active': state.program == 'free' }"><a href="#free">Free</a></div>
+			<div class="col-xs-4 text-center" ng-class="{ 'active': state.program == 'guided' }"><a href="#guided">Guided</a></div>
+			<div class="col-xs-4 text-center" ng-class="{ 'active': state.program == 'timed' }"><a href="#timed">Timed</a></li>
+		</nav>
+		</div>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.2.1/lodash.backbone.js"></script>
 		<script src="/javascripts/lib/angular/angular.js"></script>

@@ -1,10 +1,14 @@
 @import "bootstrap/bootstrap.less";
 
-a {
-  color: #00B7FF;
+body {
+	padding-bottom: 30px;
 }
 
-nav {
+section {
+	padding: 10px 0;
+}
+
+header {
 	h1 {
 		font-size: 20px;
 	}
@@ -23,6 +27,35 @@ nav {
 	.config-menu {
 		font-size: 20px;
 		margin-top: 15px
+	}
+}
+
+nav {
+	position: fixed;
+	bottom: 0;
+	width: 100%;
+
+	div {
+		background: #333;
+		padding: 0px !important;
+
+		a, a:hover {
+			line-height: 30px;
+			height: 30px;
+			font-size: 10px;
+			width: 100%;
+			display: inline-block;
+			color: #ccc;
+			text-decoration: none;
+		}
+
+		&.active a {
+			color: #00b7ff;
+		}
+
+		&:first-child {
+			border: 0;
+		}
 	}
 }
 
@@ -57,7 +90,7 @@ nav {
 	background-color: #8EC447;
 	padding: 10px 0;
 
-	h2 {
+	h1, h2 {
 		color: #dff0d8;
 	}
 }
