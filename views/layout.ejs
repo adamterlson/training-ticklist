@@ -9,25 +9,30 @@
 		<link rel='stylesheet' href='/stylesheets/style.css' />
 	</head>
 	<body ng-controller="MainCtrl" ng-cloak class="ng-cloak">
-		<header>
-			<div class="container">
-				<% include configure.ejs %>
-
-				<nav role="navigation" role="navigation">
-					<ul class="list-inline">
-						<li ng-repeat="program in programs" ng-class="{ 'active': state.program == program }">
-							<a href="#{{program}}">{{program}}</a>
-						</li>
-					</ul>
-				</nav>
+		<div ng-swipe-left="toggleConfig($event)" id="outer-wrap">
+			<div id="inner-wrap">
+				<header>
+					<div class="container">
+						<% include configure.ejs %>
+						<nav role="navigation" role="navigation">
+							<ul class="list-inline">
+								<li ng-repeat="program in programs" ng-class="{ 'active': state.program == program }">
+									<a href="#{{program}}">{{program}}</a>
+								</li>
+							</ul>
+						</nav>
+					</div>
+				</header>
+				<div id="main">
+					<%- body %>
+				</div>
 			</div>
-		</header>
-		<%- body %>
-		<div class="container">
 		</div>
+		<script src="/javascripts/lib/modernizr/modernizr.js"></script>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/lodash.js/2.2.1/lodash.backbone.js"></script>
 		<script src="/javascripts/lib/angular/angular.js"></script>
+		<script src="/javascripts/lib/angular-touch/angular-touch.js"></script>
 		<script src="/javascripts/lib/angular-ui-router/angular-ui-router.min.js"></script>
 		<script src="/javascripts/lib/angular-bootstrap/ui-bootstrap-tpls.js"></script>
 		<script src="/javascripts/main.js"></script>

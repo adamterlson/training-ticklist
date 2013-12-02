@@ -20,8 +20,17 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes,
 		return _.find(ClimbingTypes, { name: state.climbingType }).scale;
 	}
 
-	$scope.openConfig = function (e, $event) {
+	$scope.toggleConfig = function (e) {
 		e.stopPropagation();
-		$('#configure-menu .dropdown-toggle').click();
+		var $body = angular.element('body');
+		$body.toggleClass('js-nav');
+		if ($body.hasClass('js-nav')) {
+			angular.element(document.getElementById('config-menu')).off().on(Modernizr.touch ? 'touchstart' : 'click', function (e) {
+				e.stopPropagation();
+			});
+			$body.one(Modernizr.touch ? 'touchstart' : 'click', function () {
+				$scope.toggleConfig(e);
+			});
+		}
 	}
 });
