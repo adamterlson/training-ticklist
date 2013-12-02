@@ -5,7 +5,7 @@
 			<button class="btn btn-default" ng-click="reset()">Go Again</button>
 		</h1>
 	</div>
-	<div class="text-center clearfix" ng-if="!program.finished">
+	<div class="text-center clearfix" ng-if="program.resting">
 		<div class="info">
 			<div class="desc">Remaining Climbs</div>
 			<h2>{{program.options.totalClimbs - program.completedClimbs.length - 1 }}</h2>
@@ -27,7 +27,7 @@
 <div class="text-center" ng-if="!program.finished">
 	<div ng-if="!program.resting">
 		<hgroup>
-			<h4>It's time to climb!</h4>
+			<h4>Climb on!</h4>
 			<h2>{{program.current.label}}</h2>
 		</hgroup>
 		<button class="btn btn-primary" ng-click="program.complete()">Sended</button>

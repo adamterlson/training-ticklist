@@ -11,6 +11,8 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 
 		this.completedClimbs = [];
 
+		this.generate();
+
 		this.stage().then(this.climb.bind(this));
 	};
 
@@ -19,6 +21,15 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		current: null, // the current climb
 		completedClimbs: null,
 		finished: false, // the completion of the program
+
+		generate: function () {
+			this.climbs = this.options.scale.slice().reverse().map(function (label) {
+				return {
+					label: label,
+					difficulty: this.options.scale.indexOf(label)
+				};
+			}.bind(this));
+		},
 
 		stage: function () {
 			var dfd = $q.defer();
@@ -36,17 +47,7 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		},
 
 		next: function () {
-			if (!this.current) {
-				return {
-					label: this.options.scale[0],
-					difficulty: 0
-				};
-			}
-			var nextScaleIndex = this.current.difficulty + 1;
-			return {
-				label: this.options.scale[nextScaleIndex],
-				difficulty: nextScaleIndex
-			};
+			return this.climbs.pop();
 		},
 
 		climb: function () {
