@@ -14,10 +14,6 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes,
 		StateStorage.put(newValue)
 	}, true);
 
-	$scope.$watch('state.program', function (newValue, oldValue) {
-		$state.go(newValue);
-	});
-
 	$scope.fullScale = function () {
 		return _.find(ClimbingTypes, { name: state.climbingType }).scale;
 	}

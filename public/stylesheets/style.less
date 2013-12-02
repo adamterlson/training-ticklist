@@ -1,7 +1,7 @@
 @import "bootstrap/bootstrap.less";
 
 body {
-	padding-bottom: 30px;
+	padding-bottom: 25px;
 }
 
 section {
@@ -30,33 +30,47 @@ header {
 	}
 }
 
+hgroup {
+	h4 {
+		font-size: 15px;
+		margin-bottom: 0;
+	}
+	h2 {
+		font-size: 60px;
+		line-height: 80px;
+		margin-top: 0;
+		font-weight: bold;
+	}
+}
+
 nav {
 	position: fixed;
 	bottom: 0;
 	width: 100%;
+	background-color: @brand-info;
 
-	div {
-		background: #333;
-		padding: 0px !important;
-
-		a, a:hover {
-			line-height: 30px;
-			height: 30px;
-			font-size: 10px;
-			width: 100%;
-			display: inline-block;
-			color: #ccc;
-			text-decoration: none;
-		}
-
-		&.active a {
-			color: #00b7ff;
-		}
-
-		&:first-child {
-			border: 0;
-		}
+	a, a:hover {
+		line-height: 30px;
+		height: 30px;
+		font-size: 10px;
+		width: 100%;
+		display: inline-block;
+		color: #fff;
+		text-decoration: none;
+		font-weight: bold;
 	}
+
+	&.active a {
+		color: @gray-dark;
+	}
+
+	&:first-child {
+		border: 0;
+	}
+}
+
+.mono-space {
+	font-family: @font-family-monospace;
 }
 
 .progress-xs {
@@ -67,6 +81,8 @@ nav {
 	button {
 		width: 60px;
 		display: inline-block;
+		border-left: 0;
+		border-top: 0;
 	}
 }
 
