@@ -47,24 +47,28 @@ hgroup {
 }
 
 nav {
-	font-size: 14px;
-	display: inline-block;
 	ul {
-		margin: 0;
+		margin: 8px 0 0 0;
+
+		li {
+			height: 30px;
+			line-height: 30px;
+		}
 	}
 	a {
-		line-height: 40px;
+		padding: 0 10px;
 		display: inline-block;
-		width: 60px;
-		text-align: center;
-
+		transition-duration: .1s;
+		transition-timing-function: linear;
 	}
 	a:hover {
 		text-decoration: none;
 	}
 	.active a {
 		color: #fff;
-		font-size: 20px;
+		transform: scale(1.5);
+		-ms-transform: scale(1.5); /* IE 9 */
+		-webkit-transform: scale(1.5); /* Safari and Chrome */
 	}
 }
 
