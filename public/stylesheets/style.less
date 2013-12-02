@@ -56,6 +56,10 @@ nav {
 		}
 	}
 	a {
+		transform: scale3d(.65, .65, .65);
+		-ms-transform: scale3d(.65, .65, .65); /* IE 9 */
+		-webkit-transform: scale3d(.65, .65, .65); /* Safari and Chrome */
+		font-size: 25px;
 		padding: 0 10px;
 		display: inline-block;
 		transition-duration: .1s;
@@ -66,9 +70,9 @@ nav {
 	}
 	.active a {
 		color: #fff;
-		transform: scale(1.5);
-		-ms-transform: scale(1.5); /* IE 9 */
-		-webkit-transform: scale(1.5); /* Safari and Chrome */
+		transform: scale3d(1, 1, 1);
+		-ms-transform: scale3d(1, 1, 1); /* IE 9 */
+		-webkit-transform: scale3d(1, 1, 1); /* Safari and Chrome */
 	}
 }
 
