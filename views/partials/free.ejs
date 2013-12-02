@@ -1,24 +1,29 @@
-
-<div class="info-container"  ng-class="{ 'complete': !remainingPoints() }">
-	<div class="text-center" ng-hide="remainingPoints()">
-		<h1>
-			Good work!  You completed your workout!
-			<button class="btn btn-default" ng-click="newList()">Go Again</button>
-		</h1>
+<div class="progress-container">
+	<div class="progress progress-xs" ng-if="remainingPoints()">
+		<div class="progress-bar progress-bar-primary text-right" role="progressbar" aria-valuenow="{{totalPoints()/state.goal}}" aria-valuemin="0" aria-valuemax="1" style="width: {{(totalPoints()/state.goal)*100}}%">
+		</div>
 	</div>
-	<div class="text-center clearfix" ng-show="remainingPoints()">
-		<div class="info">
-			<div class="desc">Remaining Points</div>
-			<h2>{{remainingPoints() | sexypoints}}</h2>
-		</div>
-		<div class="info">
-			<div class="desc">Est. Time Remaining</div>
-			<h2><timer seconds="30" /></h2>
-		</div>
-		<div class="info">
-			<div class="desc">Program</div>
-			<h2>{{state.program}}</h2>
-		</div>
+</div>
+
+<section class="info-container text-center complete" ng-if="!remainingPoints()">
+	<h1>
+		Good work!  You completed your workout!
+		<button class="btn btn-default" ng-click="newList()">Go Again</button>
+	</h1>
+</section>
+
+<div class="info-container text-center clearfix" ng-if="remainingPoints()">
+	<div class="info">
+		<div class="desc">Remaining Points</div>
+		<h2>{{remainingPoints() | sexypoints}}</h2>
+	</div>
+	<div class="info">
+		<div class="desc">Est. Time Remaining</div>
+		<h2><timer seconds="30" /></h2>
+	</div>
+	<div class="info">
+		<div class="desc">Program</div>
+		<h2>{{state.program}}</h2>
 	</div>
 </div>
 <div class="action-container">
