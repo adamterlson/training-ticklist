@@ -12,7 +12,7 @@ module.exports = function(grunt) {
     },
     modernizr: {
       // [REQUIRED] Path to the build you're using for development.
-      "devFile" : "bower_components/modernizr.js",
+      "devFile" : "bower_components/modernizr/modernizr.js",
 
       // [REQUIRED] Path to save out the built file.
       "outputFile" : "public/javascripts/lib/modernizr/modernizr-custom.js",
