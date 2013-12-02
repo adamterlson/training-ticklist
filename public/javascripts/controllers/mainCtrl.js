@@ -7,6 +7,8 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes,
 		program: 'free'
 	});
 
+	$scope.programs = ['guided', 'free', 'timed'];
+
 	$scope.$watch('state', function (newValue, oldValue) {
 		if (newValue.climbingType !== oldValue.climbingType) {
 			newValue.projectLevel = $scope.fullScale()[0];
