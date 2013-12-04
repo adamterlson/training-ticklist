@@ -1,55 +1,54 @@
-tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
-	var ProgramDefaults = {
-		restTimer: true,
-		restTime: 30,
-		totalClimbs: 4,
-		goal: 2
-	};
+tt.factory('program', function ($timeout, $q) {
+	var DISTANCE_FROM_PROJECT_LEVEL = 5
 
-	var Program = function (options) {
-		this.options = _.defaults(options || {}, ProgramDefaults);
+	var generators = {
+		linear: function (numberOfClimbs, projectLevel) {
+			var startingIndex, 
+				endingIndex, 
+				slope, 
+				climbs = [];
 
-		this.completedClimbs = [];
-
-		this.generate();
-
-		this.stage().then(this.climb.bind(this));
-	};
-
-	_.extend(Program.prototype, {
-		climbing: null, // the dfd for the climbing
-		current: null, // the current climb
-		completedClimbs: null,
-		finished: false, // the completion of the program
-
-		generate: function () {
-			var startingIndex, endingIndex, slope, i;
-
-			endingIndex = this.options.goal;
-			startingIndex = endingIndex - 5;
+			endingIndex = projectLevel;
+			startingIndex = endingIndex - DISTANCE_FROM_PROJECT_LEVEL;
 
 			if (startingIndex < 0) {
 				startingIndex = 0;
 			}
 
-			slope = (endingIndex - startingIndex) / this.options.totalClimbs;
-			this.climbs = [];
-			i = endingIndex;
-			while (i > startingIndex) {
-				this.climbs.push(Math.ceil(i));
-				i = i - slope;
+			slope = (endingIndex - startingIndex) / numberOfClimbs;
+			while (endingIndex > startingIndex) {
+				climbs.push(Math.ceil(endingIndex));
+				endingIndex = endingIndex - slope;
 			}
+			return climbs;
+		}
+	};
+
+	var program = {
+		type: 'linear',
+		completedClimbs: [],
+		climbs: [],
+		finished: false,
+		current: null,
+		projectLevel: 3,
+		numberOfClimbs: 10,
+
+		// Rest Settings
+		restTimer: true,
+		restTime: 30,
+
+		// Promises
+		resting: null,
+		climbing: null,
+
+		generate: function () {
+			program.climbs = generators[program.type](program.numberOfClimbs, program.projectLevel);
 		},
 
 		stage: function () {
 			var dfd = $q.defer();
 			
-			this.current = this.next();
-			
-			if (this.completedClimbs.length >= this.options.totalClimbs) {
-				this.finished = true;
-				dfd.reject();
-			}
+			program.current = program.next();
 
 			dfd.resolve();
 
@@ -57,51 +56,72 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		},
 
 		next: function () {
-			return this.climbs.pop();
+			return program.climbs.pop();
 		},
 
 		climb: function () {
-			this.climbing = $q.defer();
-			this.climbing.promise
-				.then(this.log.bind(this))
-				.then(this.stage.bind(this))
-				.then(this.rest.bind(this))
-				.then(this.climb.bind(this));
+			if (!program.climbs || !program.climbs.length) {
+				program.generate();
+			}
+
+			program.climbing = $q.defer();
+
+			return program.stage()
+				.then(function () {
+					return program.climbing.promise;
+				})
+				.then(program.log)
+				.then(program._checkComplete)
+				.then(program.rest)
+				.then(program.climb);
 		},
 
 		log: function (climb) {
-			this.completedClimbs.push(climb);
+			program.completedClimbs.push(climb);
 		},
 
 		complete: function () {
-			this.climbing.resolve(this.current);
+			program.climbing.resolve(program.current);
 		},
 
 		rest: function (time) {
-			this.resting = $q.defer();
-			if (this.options.restTimer) {
-				$timeout(this.resting.resolve, this.options.restTime * 1000);
+			program.resting = $q.defer();
+			if (program.restTimer) {
+				$timeout(program.resting.resolve, program.restTime * 1000);
 			}
 			else {
-				this.resting.resolve();
+				program.resting.resolve();
 			}
 
-			this.resting.promise.then(function () {
-				this.resting = null;
-			}.bind(this));
+			program.resting.promise.then(function () {
+				program.resting = null;
+			});
 
-			return this.resting.promise;
+			return program.resting.promise;
 		},
 
 		rested: function () {
-			this.resting.resolve();
-		}
-	});
+			program.resting.resolve();
+		},
 
-	return {
-		get: function (options) {
-			return new Program(options); //_.extend({}, base, types[type]);
+		reset: function () {
+			program.finished = false;
+			program.completedClimbs = [];
+			program.generate();
+			program.stage();
+			program.climb();
+		},
+
+		_checkComplete: function () {
+			var dfd = $q.defer();
+			if (program.completedClimbs.length >= program.numberOfClimbs) {
+				program.finished = true;
+				dfd.reject();
+			}
+			dfd.resolve();
+			return dfd.promise;
 		}
-	}
+	};
+
+	return program;
 });
-

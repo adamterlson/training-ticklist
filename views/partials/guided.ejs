@@ -1,12 +1,12 @@
 <div class="progress-container">
-	<div class="progress progress-xs" ng-if="!program.finished">
-		<div class="progress-bar progress-bar-primary text-right" role="progressbar" aria-valuenow="{{program.completedClimbs.length/program.options.totalClimbs}}" aria-valuemin="0" aria-valuemax="1" style="width: {{(program.completedClimbs.length/program.options.totalClimbs)*100}}%">
+	<div class="progress progress-xs">
+		<div class="progress-bar progress-bar-primary text-right" role="progressbar" aria-valuenow="{{program.completedClimbs.length/program.numberOfClimbs}}" aria-valuemin="0" aria-valuemax="1" style="width: {{(program.completedClimbs.length/program.numberOfClimbs)*100}}%">
 		</div>
 	</div>
 </div>
 <div>
-	<button class="btn btn-primary btn-xs">{{program.options.type}}</button><br />
-	<select ng-model="options.totalClimbs">
+	<button class="btn btn-primary btn-xs">{{program.type}}</button><br />
+	<select ng-model="program.numberOfClimbs">
 		<option ng-repeat="n in [] | range:15">{{(n+1)*2}}</option>
 	</select> Climbs<br />
 
@@ -14,7 +14,7 @@
 <section class="info-container text-center complete" ng-if="program.finished">
 	<h1>
 		Good work!  You completed your workout!
-		<button class="btn btn-default" ng-click="reset()">Go Again</button>
+		<button class="btn btn-default" ng-click="program.reset()">Go Again</button>
 	</h1>
 </section>
 <section class="text-center" ng-if="!program.finished">
@@ -30,17 +30,17 @@
 	<div ng-if="program.resting">
 		<hgroup>
 			<h4>It's time to rest!</h4>
-			<h2><timer seconds="{{program.options.restTime}}"></timer></h2>
+			<h2><timer seconds="{{program.restTime}}"></timer></h2>
 		</hgroup>
 		<button class="btn btn-link" ng-click="program.rested()">I'm ready</button><br /><br />
-		Rest Timer: <a href="javascript:void(0);" ng-click="program.options.restTimer = !program.options.restTimer">{{program.options.restTimer ? 'enabled' : 'disabled' }}</a>
+		Rest Timer: <a href="javascript:void(0);" ng-click="program.restTimer = !program.restTimer">{{program.restTimer ? 'enabled' : 'disabled' }}</a>
 	</div>
 </section>
 <div class="info-container fixed-bottom" ng-if="!program.finished">
 	<div class="text-center clearfix">
 		<div class="info">
-			<div class="desc">Remaining Climbs</div>
-			<h2>{{program.options.totalClimbs - program.completedClimbs.length - 1 }}</h2>
+			<div class="desc">Climbs Remaining</div>
+			<h2>{{program.numberOfClimbs - program.completedClimbs.length }}</h2>
 		</div>
 		<div class="info">
 			<div class="desc">Workout Timer</div>
