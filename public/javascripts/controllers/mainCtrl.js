@@ -1,7 +1,7 @@
 tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes, $state) {
 	var state = $scope.state = _.defaults(StateStorage.get() || {}, {
 		climbingType: ClimbingTypes[0].name,
-		projectLevel: ClimbingTypes[0].scale[0],
+		projectLevel: 0,
 		goal: 50,
 		ticks: [],
 		program: 'free'
