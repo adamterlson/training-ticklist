@@ -1,16 +1,16 @@
-tt.controller('GuidedModeCtrl', function GuidedModeCtrl($scope, ClimbingTypes, program) {
+tt.controller('GuidedModeCtrl', function GuidedModeCtrl($scope, ClimbingTypes, program, programs) {
 	var state = $scope.state;
 	state.program = 'guided';
 
 	program.projectLevel = state.projectLevel;
-	program.setType = 'linear';
 
 	if (!program.current) {
 		program.climb();
 	}
 	$scope.program = program;
+	$scope.programs = programs;
 
-	$scope.$watch('program.numberOfClimbs', function (newValue, oldValue) {
+	$scope.$watch('program.numberOfClimbs + program.type', function (newValue, oldValue) {
 		if (newValue === oldValue) return;
 
 		program.reset();

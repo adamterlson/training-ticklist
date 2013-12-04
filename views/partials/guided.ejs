@@ -4,8 +4,10 @@
 		</div>
 	</div>
 </div>
-<div>
-	<button class="btn btn-primary btn-xs">{{program.type}}</button><br />
+<div ng-if="false">
+	<div ng-repeat="p in programs">
+		<button class="btn btn-primary btn-xs" ng-if="program.type !== p.name" ng-click="program.type = p.name">{{p.name}}</button> {{p.name}} - {{p.description}}
+	</div>
 	<select ng-model="program.numberOfClimbs">
 		<option ng-repeat="n in [] | range:15">{{(n+1)*2}}</option>
 	</select> Climbs<br />

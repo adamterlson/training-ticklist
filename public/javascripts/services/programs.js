@@ -1,15 +1,25 @@
+tt.factory('programs', function () {
+	return [
+		{
+			name: 'linear',
+			description: 'A linear build to work on your project level.'
+		},
+		{
+			name: 'technique',
+			description: 'Nothing but easy problems.  Take your time and focus on technique!'
+		}
+	];
+});
+
 tt.factory('program', function ($timeout, $q) {
 	var DISTANCE_FROM_PROJECT_LEVEL = 5
 
 	var generators = {
 		linear: function (numberOfClimbs, projectLevel) {
-			var startingIndex, 
-				endingIndex, 
+			var endingIndex = projectLevel, 
+				startingIndex = endingIndex - DISTANCE_FROM_PROJECT_LEVEL, 
 				slope, 
 				climbs = [];
-
-			endingIndex = projectLevel;
-			startingIndex = endingIndex - DISTANCE_FROM_PROJECT_LEVEL;
 
 			if (startingIndex < 0) {
 				startingIndex = 0;
@@ -19,6 +29,18 @@ tt.factory('program', function ($timeout, $q) {
 			while (endingIndex > startingIndex) {
 				climbs.push(Math.ceil(endingIndex));
 				endingIndex = endingIndex - slope;
+			}
+			return climbs;
+		},
+		technique: function (numberOfClimbs, projectLevel) {
+			var endingIndex = projectLevel, 
+				startingIndex = endingIndex - DISTANCE_FROM_PROJECT_LEVEL, 
+				slope, 
+				climbs = [];
+
+			while(climbs.length <= numberOfClimbs) {
+				climbs.push(startingIndex + 1);
+				climbs.push(startingIndex);
 			}
 			return climbs;
 		}
