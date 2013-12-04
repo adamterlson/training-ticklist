@@ -25,7 +25,7 @@
 				<select id="climbingType" class="form-control input-sm" name="climbingType" ng-model="state.climbingType" ng-options="type for type in types"></select>
 			</div>
 
-			<div class="form-group">{{state.projectLevel}}
+			<div class="form-group">
 				<label for="projectLevel">Hardest Climb Ever Sended</label>
 				<select id="projectLevel" class="form-control input-sm" name="projectLevel" ng-model="state.projectLevel" ng-options="fullScale().indexOf(rating) as rating for rating in fullScale()"></select>
 			</div>
