@@ -24,10 +24,13 @@ tt.factory('program', function ($timeout, $q) {
 			if (startingIndex < 0) {
 				startingIndex = 0;
 			}
+			if (endingIndex < 2) {
+				endingIndex = 2;
+			}
 
 			slope = (endingIndex - startingIndex) / numberOfClimbs;
-			while (endingIndex > startingIndex) {
-				climbs.push(Math.ceil(endingIndex));
+			while(climbs.length <= numberOfClimbs) {
+				climbs.push(Math.round(endingIndex));
 				endingIndex = endingIndex - slope;
 			}
 			return climbs;
@@ -59,6 +62,12 @@ tt.factory('program', function ($timeout, $q) {
 		restTimer: true,
 		restTime: 30,
 
+		// Modifiers
+		modifiers: {
+			timer: 0,
+			difficulty: 0
+		},
+
 		// Promises
 		resting: null,
 		climbing: null,
@@ -70,7 +79,9 @@ tt.factory('program', function ($timeout, $q) {
 		stage: function () {
 			var dfd = $q.defer();
 			
-			program.current = program.next();
+			program.current = program.next() - program.modifiers.difficulty;
+
+			if (program.current < 0) program.current = 0;
 
 			dfd.resolve();
 
@@ -109,7 +120,7 @@ tt.factory('program', function ($timeout, $q) {
 		rest: function (time) {
 			program.resting = $q.defer();
 			if (program.restTimer) {
-				$timeout(program.resting.resolve, program.restTime * 1000);
+				$timeout(program.resting.resolve, program.totalRestTime() * 1000);
 			}
 			else {
 				program.resting.resolve();
@@ -122,7 +133,16 @@ tt.factory('program', function ($timeout, $q) {
 			return program.resting.promise;
 		},
 
+		totalRestTime: function () {
+			return program.restTime + program.modifiers.timer * 30
+		},
+
 		rested: function () {
+			//Add a flag that lasts for a few seconds so if the timer is skipped
+			//it'll decrement the rest time modifier
+
+			//if (program.tooTired > 0) program.tooTired--;
+
 			program.resting.resolve();
 		},
 
@@ -132,6 +152,17 @@ tt.factory('program', function ($timeout, $q) {
 			program.generate();
 			program.stage();
 			program.climb();
+		},
+
+		tooTired: function () {
+			program.modifiers.timer++;
+			program.rest();
+		},
+
+		tooHard: function () {
+			program.modifiers.difficulty++;
+			program.climbs.push(program.current);
+			program.stage();
 		},
 
 		_checkComplete: function () {

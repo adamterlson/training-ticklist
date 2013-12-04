@@ -22,7 +22,7 @@
 <section class="text-center" ng-if="!program.finished">
 	<div ng-if="!program.resting">
 		<hgroup>
-			<h4>Climb on!</h4>
+			<h3>Climb on!</h3>
 			<h2>{{fullScale()[program.current]}}</h2>
 		</hgroup>
 		<button class="btn btn-primary btn-massive glyphicon glyphicon-ok-circle" ng-click="program.complete()"><i></i></button><br /><br />
@@ -32,7 +32,7 @@
 	<div ng-if="program.resting">
 		<hgroup>
 			<h4>It's time to rest!</h4>
-			<h2><timer seconds="{{program.restTime}}"></timer></h2>
+			<h2><timer seconds="{{program.totalRestTime()}}"></timer></h2>
 		</hgroup>
 		<button class="btn btn-link" ng-click="program.rested()">I'm ready</button><br /><br />
 		Rest Timer: <a href="javascript:void(0);" ng-click="program.restTimer = !program.restTimer">{{program.restTimer ? 'enabled' : 'disabled' }}</a>
