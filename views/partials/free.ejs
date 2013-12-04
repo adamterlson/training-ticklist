@@ -30,12 +30,8 @@
 		<h2>{{remainingPoints() | sexypoints}}</h2>
 	</div>
 	<div class="info">
-		<div class="desc">Est. Time Remaining</div>
-		<h2><timer seconds="30" /></h2>
-	</div>
-	<div class="info">
-		<div class="desc">Program</div>
-		<h2>{{state.program}}</h2>
+		<div class="desc">Workout Timer</div>
+		<h2><timer seconds="0" up="true"></timer></h2>
 	</div>
 </div>
 <div class="container" ng-show="totalPoints()">
