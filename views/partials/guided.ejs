@@ -4,6 +4,13 @@
 		</div>
 	</div>
 </div>
+<div>
+	<button class="btn btn-primary btn-xs">{{program.options.type}}</button><br />
+	<select ng-model="options.totalClimbs">
+		<option ng-repeat="n in [] | range:15">{{(n+1)*2}}</option>
+	</select> Climbs<br />
+
+</div>
 <section class="info-container text-center complete" ng-if="program.finished">
 	<h1>
 		Good work!  You completed your workout!
@@ -14,7 +21,7 @@
 	<div ng-if="!program.resting">
 		<hgroup>
 			<h4>Climb on!</h4>
-			<h2>{{program.current.label}}</h2>
+			<h2>{{fullScale()[program.current]}}</h2>
 		</hgroup>
 		<button class="btn btn-primary btn-massive glyphicon glyphicon-ok-circle" ng-click="program.complete()"><i></i></button><br /><br />
 		<button class="btn btn-link btn-xs" ng-click="program.tooTired()">Too Tired</button>
@@ -36,12 +43,8 @@
 			<h2>{{program.options.totalClimbs - program.completedClimbs.length - 1 }}</h2>
 		</div>
 		<div class="info">
-			<div class="desc">Est. Time Remaining</div>
-			<h2><timer seconds="5"></timer></h2>
-		</div>
-		<div class="info">
-			<div class="desc">Program</div>
-			<h2>{{state.program}}</h2>
+			<div class="desc">Workout Timer</div>
+		<h2><timer seconds="0" up="true"></timer></h2>
 		</div>
 	</div>
 </div>

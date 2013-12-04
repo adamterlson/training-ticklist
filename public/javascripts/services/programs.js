@@ -1,9 +1,9 @@
 tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 	var ProgramDefaults = {
-		scale: ClimbingTypes[0].scale,
 		restTimer: true,
 		restTime: 30,
-		totalClimbs: 4
+		totalClimbs: 4,
+		goal: 2
 	};
 
 	var Program = function (options) {
@@ -23,12 +23,22 @@ tt.factory('Programs', function (ClimbingTypes, $timeout, $q) {
 		finished: false, // the completion of the program
 
 		generate: function () {
-			this.climbs = this.options.scale.slice().reverse().map(function (label) {
-				return {
-					label: label,
-					difficulty: this.options.scale.indexOf(label)
-				};
-			}.bind(this));
+			var startingIndex, endingIndex, slope, i;
+
+			endingIndex = this.options.goal;
+			startingIndex = endingIndex - 5;
+
+			if (startingIndex < 0) {
+				startingIndex = 0;
+			}
+
+			slope = (endingIndex - startingIndex) / this.options.totalClimbs;
+			this.climbs = [];
+			i = endingIndex;
+			while (i > startingIndex) {
+				this.climbs.push(Math.ceil(i));
+				i = i - slope;
+			}
 		},
 
 		stage: function () {
