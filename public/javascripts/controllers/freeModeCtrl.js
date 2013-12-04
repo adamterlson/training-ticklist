@@ -54,7 +54,6 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 });
 
 function calculatePoints(rating, scale, bestClimb) {
-	debugger;
 	var maxPointIndex = scale.indexOf(bestClimb),
 		bonus = MAX_POINTS/4,
 		index = scale.indexOf(rating),
