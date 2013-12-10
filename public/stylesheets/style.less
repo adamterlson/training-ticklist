@@ -156,6 +156,21 @@ nav {
 	height: 5px;
 }
 
+.climbs-container .collapsable-content {
+	background: #636466;
+	overflow: hidden;
+	height: 120px;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+	display: block;
+    z-index: 2;
+
+	&.collapsed {
+		display: none;
+	}
+
+}
+
 .climb-entry {
 	button {
 		width: 60px;
@@ -169,6 +184,7 @@ nav {
 .info-container {
 	background-color: #dff0d8;
 	color: #8EC447;
+	z-index: 3;
 
 	h1 {
 		margin: 0;

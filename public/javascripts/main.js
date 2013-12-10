@@ -2,16 +2,12 @@ var SCALE_LENGTH = 7,
 	BONUS_CLIMBS = 2,
 	MAX_POINTS = 10;
 
-document.ontouchmove = function(e) { e.preventDefault(); };
+//document.ontouchmove = function(e) { e.preventDefault(); };
 
 var tt = angular.module('tt', ['ui.router', 'ui.bootstrap', 'ngTouch'])
 	.config(function($stateProvider, $urlRouterProvider) {
-		$urlRouterProvider.otherwise("/404");
+		$urlRouterProvider.otherwise("/guided");
 		$stateProvider
-			.state('root', {
-				url: '',
-				controller: 'MainCtrl'
-			})
 			.state('free', {
 				url: '/free',
 				templateUrl: 'partials/free',
@@ -23,3 +19,5 @@ var tt = angular.module('tt', ['ui.router', 'ui.bootstrap', 'ngTouch'])
 				controller: 'GuidedModeCtrl'
 			});
 	});
+
+	
