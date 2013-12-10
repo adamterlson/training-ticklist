@@ -11,7 +11,6 @@
 		<button class="btn btn-default" ng-click="newList()">Go Again</button>
 	</h1>
 </section>
-<chart datapoints="state.ticks" sexypoints="sexypoints" special="score.is.special" lame="score.is.lame"></chart>
 <div class="action-container">
 	<div class="container text-center">
 		<div ng-show="remainingPoints()">
@@ -25,6 +24,7 @@
 		</div>
 	</div>
 </div>
+<chart datapoints="state.ticks" sexypoints="sexypoints" special="score.is.special" lame="score.is.lame"></chart>
 <!-- <div class="container text-left">
 	<h3>Climbs ({{state.ticks.length}})</h3>
 	<table class="table">

@@ -222,8 +222,8 @@ nav {
 		margin: 10px auto;
 		text-align: center;
 		vertical-align: bottom;
-		height: 160px;
-		overflow: hidden;
+		height: 180px;
+		padding-top: 15px;
 
 		.point {
 			margin-right: 2px;
@@ -234,25 +234,18 @@ nav {
 			text-align: center;
 		}
 
-		.dot {
-			background-color: #fff;
-			position: absolute;
-			bottom: 0;
-			display: none;
-		}
-
 		.bar {
-			background: #8EC447;
+			background-color: @brand-primary;
 
 			&.special {
-				background: @brand-success;
+				background-color: @brand-success;
 
 				.primary { 
 					color: @brand-success;
 				}
 			}
 			&.lame {
-				background: @brand-warning;
+				background-color: @brand-warning;
 
 				.primary { 
 					color: @brand-warning;
@@ -270,7 +263,7 @@ nav {
 					font-weight: bold;
 					color: @brand-primary;
 					position: absolute;
-					bottom: -10px;
+					top: -10px;
 					width: 100%;
 				}
 			}
