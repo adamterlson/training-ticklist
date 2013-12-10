@@ -22,13 +22,17 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes,
 
 	$scope.toggleConfig = function (e) {
 		e.stopPropagation();
-		var $body = angular.element('body');
-		$body.toggleClass('js-nav');
+		var $body = angular.element('body'),
+			touch = Modernizr.touch ? 'touchstart' : 'click';
+
+		$body.off(touch)
+			 .toggleClass('js-nav');
+
 		if ($body.hasClass('js-nav')) {
 			angular.element(document.getElementById('config-menu')).off().on(Modernizr.touch ? 'touchstart' : 'click', function (e) {
 				e.stopPropagation();
 			});
-			$body.one(Modernizr.touch ? 'touchstart' : 'click', function () {
+			$body.one(touch, function () {
 				$scope.toggleConfig(e);
 			});
 		}
