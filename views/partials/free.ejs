@@ -11,6 +11,11 @@
 		<button class="btn btn-default" ng-click="newList()">Go Again</button>
 	</h1>
 </section>
+<div class="chart-container">
+	<div class="chart">
+		<div class="bar" ng-repeat="tick in state.ticks" style="height: {{tick.points*10}}px; width: {{500/state.ticks.length - 10}}px">{{tick.description}}</div>
+	</div>
+</div>
 <div class="action-container">
 	<div class="container text-center">
 		<div ng-show="remainingPoints()">
@@ -24,30 +29,28 @@
 		</div>
 	</div>
 </div>
+<div class="container text-left">
+	<h3>Climbs ({{state.ticks.length}})</h3>
+	<table class="table">
+		<thead>
+			<tr>
+				<th>Climb</th>
+				<th>Type</th>
+				<th>Points</th>
+				<th><button class="btn btn-link btn-xs" ng-click="newList()">reset</button></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="tick in state.ticks | reverse track by $index ">
+				<td>{{tick.description}}</td>
+				<td>{{tick.climbingType | lowercase}}</td>
+				<td>{{tick.points | sexypoints}}</td>
+				<td><button class="btn btn-danger btn-xs" ng-click="removeTick(tick)">remove</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 <div class="fixed-bottom">
-	<div class="collapsable text-center climbs-container" ng-if="state.ticks.length > 0">
-		<button class="btn btn-primary toggle">Snow Climbs ({{state.ticks.length}})</button>
-		<div class="collapsable-content container text-left">
-			<table class="table">
-				<thead>
-					<tr>
-						<th>Climb</th>
-						<th>Type</th>
-						<th>Points</th>
-						<th><button class="btn btn-link btn-xs" ng-click="newList()">reset</button></th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="tick in state.ticks | reverse track by $index ">
-						<td>{{tick.description}}</td>
-						<td>{{tick.climbingType | lowercase}}</td>
-						<td>{{tick.points | sexypoints}}</td>
-						<td><button class="btn btn-danger btn-xs" ng-click="removeTick(tick)">remove</button></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div>
 	<div class="info-container text-center clearfix" ng-if="remainingPoints()">
 		<div class="info">
 			<div class="desc">Remaining Points</div>
