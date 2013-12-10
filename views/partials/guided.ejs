@@ -25,7 +25,7 @@
 			<h3>Climb on!</h3>
 			<h2>{{fullScale()[program.current]}}</h2>
 		</hgroup>
-		<button class="btn btn-primary btn-massive glyphicon glyphicon-ok-circle" ng-click="program.complete()"><i></i></button><br /><br />
+		<button class="btn btn-primary btn-massive glyphicon glyphicon-ok-circle" ng-class="{ 'btn-success': score.is.special(program.current), 'btn-warning': score.is.lame(program.current) }" ng-click="program.complete()"><i></i></button><br /><br />
 		<button class="btn btn-link btn-xs" ng-click="program.tooTired()">Too Tired</button>
 		<button class="btn btn-link btn-xs" ng-click="program.tooHard()">Too Hard</button>
 	</div>
