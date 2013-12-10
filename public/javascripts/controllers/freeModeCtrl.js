@@ -62,7 +62,7 @@ function calculatePoints(rating, scale, bestClimb) {
 	var maxPointIndex = bestClimb,
 		bonus = MAX_POINTS/4,
 		index = rating,
-		slope = MAX_POINTS / (SCALE_LENGTH-1);
+		slope = MAX_POINTS / (SCALE_LENGTH);
 
 	if (index > maxPointIndex) {
 		return MAX_POINTS + bonus * (index - maxPointIndex);
