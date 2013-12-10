@@ -219,20 +219,38 @@ nav {
 	.chart {
 		line-height: 125px;
 		width: 500px;
-		background: white;
 		margin: 10px auto;
 		text-align: center;
 		vertical-align: bottom;
 
 		.bar {
-			line-height: 20px;
-			margin-right: 10px;
+			margin-right: 2px;
 			background: #8EC447;
 			display: inline-block;
 			vertical-align: bottom;
 			text-align: center;
-			font-size: 10px;
-			font-family: helvetica, arial, sans-serif;
+			padding: 5px 0;
+			position: relative;
+
+			&.special {
+				background: red;
+			}
+
+			span {
+				display: block;
+				line-height: 14px;
+				font-size: 14px;
+
+				&.primary {
+					font-size: 12px;
+					line-height: 12px;
+					font-weight: bold;
+
+					position: absolute;
+					bottom: -20px;
+					width: 100%;
+				}
+			}
 		}
 	}
 }

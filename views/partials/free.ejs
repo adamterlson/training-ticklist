@@ -11,11 +11,7 @@
 		<button class="btn btn-default" ng-click="newList()">Go Again</button>
 	</h1>
 </section>
-<div class="chart-container">
-	<div class="chart">
-		<div class="bar" ng-repeat="tick in state.ticks" style="height: {{tick.points*10}}px; width: {{500/state.ticks.length - 10}}px">{{tick.description}}</div>
-	</div>
-</div>
+<chart datapoints="state.ticks" sexypoints="sexypoints"></chart>
 <div class="action-container">
 	<div class="container text-center">
 		<div ng-show="remainingPoints()">
