@@ -222,36 +222,55 @@ nav {
 		margin: 10px auto;
 		text-align: center;
 		vertical-align: bottom;
-		height: 150px;
+		height: 160px;
+		overflow: hidden;
 
-		.bar {
+		.point {
 			margin-right: 2px;
-			background: #8EC447;
-			display: inline-block;
 			vertical-align: bottom;
-			text-align: center;
 			padding: 5px 0;
 			position: relative;
+			display: inline-block;
+			text-align: center;
+		}
+
+		.dot {
+			background-color: #fff;
+			position: absolute;
+			bottom: 0;
+			display: none;
+		}
+
+		.bar {
+			background: #8EC447;
 
 			&.special {
 				background: @brand-success;
+
+				.primary { 
+					color: @brand-success;
+				}
 			}
 			&.lame {
 				background: @brand-warning;
+
+				.primary { 
+					color: @brand-warning;
+				}
 			}
 
 			span {
 				display: block;
-				line-height: 14px;
+				line-height: 20px;
 				font-size: 14px;
 
 				&.primary {
 					font-size: 12px;
 					line-height: 12px;
 					font-weight: bold;
-
+					color: @brand-primary;
 					position: absolute;
-					bottom: -20px;
+					bottom: -10px;
 					width: 100%;
 				}
 			}
