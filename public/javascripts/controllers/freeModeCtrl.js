@@ -36,10 +36,12 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 		var scale;
 		if (!rating) return;
 
+		var points = calculatePoints(rating, $scope.climbingScale(), state.projectLevel);
 		state.ticks.push({ 
 			description: rating, 
 			climbingType: state.climbingType, 
-			points: calculatePoints(rating, $scope.climbingScale(), state.projectLevel)
+			points: points,
+			special: points > MAX_POINTS
 		});
 
 		scale = $scope.climbingScale();
@@ -51,6 +53,10 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	$scope.removeTick = function (tick) {
 		state.ticks.splice(state.ticks.indexOf(tick), 1);
 	};
+
+	$scope.special = function (tick) {
+		return tick
+	}
 });
 
 function calculatePoints(rating, scale, bestClimb) {
