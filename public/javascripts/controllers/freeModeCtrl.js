@@ -1,13 +1,15 @@
 tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
-	var state = $scope.state;
+	var state = $scope.state,
+		scale = _.find(ClimbingTypes, { name: state.climbingType }).scale;
 
 	state.program = 'free';
 
-	$scope.climbingScale = function () {
-		var upperBound,
-			scale = _.find(ClimbingTypes, { name: state.climbingType }).scale;
+	$scope.scale = scale;
 
-		upperBound = scale.indexOf(state.projectLevel) + BONUS_CLIMBS + 1;
+	$scope.climbingScale = function () {
+		var upperBound;
+
+		upperBound = state.projectLevel + BONUS_CLIMBS;
 		if (upperBound >= scale.length) upperBound = scale.length;
 
 		return scale.slice(0, upperBound).slice(-SCALE_LENGTH);
@@ -33,19 +35,20 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	};
 
 	$scope.addTick = function (rating) {
-		var scale;
-		if (!rating) return;
+		rating = scale.indexOf(rating);
+		var relativeScale = $scope.climbingScale();
 
-		var points = calculatePoints(rating, $scope.climbingScale(), state.projectLevel);
+		var points = calculatePoints(rating, relativeScale, state.projectLevel);
 		state.ticks.push({ 
-			description: rating, 
+			description: scale[rating], 
 			climbingType: state.climbingType, 
 			points: points,
-			special: points > MAX_POINTS
+			rating: rating,
+			special: $scope.score.is.special(rating),
+			lame: $scope.score.is.lame(rating)
 		});
 
-		scale = $scope.climbingScale();
-		if (scale.indexOf(state.projectLevel) < scale.indexOf(rating)) {
+		if (state.projectLevel <= rating) {
 			state.projectLevel = rating;
 		}
 	};
@@ -53,16 +56,12 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	$scope.removeTick = function (tick) {
 		state.ticks.splice(state.ticks.indexOf(tick), 1);
 	};
-
-	$scope.special = function (tick) {
-		return tick
-	}
 });
 
 function calculatePoints(rating, scale, bestClimb) {
-	var maxPointIndex = scale.indexOf(bestClimb),
+	var maxPointIndex = bestClimb,
 		bonus = MAX_POINTS/4,
-		index = scale.indexOf(rating),
+		index = rating,
 		slope = MAX_POINTS / (SCALE_LENGTH-1);
 
 	if (index > maxPointIndex) {

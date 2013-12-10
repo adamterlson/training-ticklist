@@ -33,4 +33,20 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes,
 			});
 		}
 	}
+
+	$scope.score = { 
+		is: {
+			lame: function (level) {
+				return level < state.projectLevel - 3;
+			},
+			special: function (level) {
+				//console.log('special ' + level + ' ' + state.projectLevel + (level >= state.projectLevel));
+				return level >= state.projectLevel;
+			}
+		}
+	};
+
+	$scope.special = function (tick) {
+		return tick
+	}
 });

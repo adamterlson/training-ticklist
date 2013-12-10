@@ -222,6 +222,7 @@ nav {
 		margin: 10px auto;
 		text-align: center;
 		vertical-align: bottom;
+		height: 150px;
 
 		.bar {
 			margin-right: 2px;
@@ -233,7 +234,10 @@ nav {
 			position: relative;
 
 			&.special {
-				background: #96d3d4;
+				background: @brand-success;
+			}
+			&.lame {
+				background: @brand-warning;
 			}
 
 			span {
