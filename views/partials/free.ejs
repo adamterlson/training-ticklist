@@ -15,8 +15,7 @@
 	<div class="container text-center">
 		<div ng-show="remainingPoints()">
 			<h3>
-				{{state.climbingType}} climbing<br />
-				<button class="btn btn-link open-config" ng-click="openConfig($event)">change</button>
+				{{state.climbingType}} climbing
 			</h3>
 			<div class="climb-entry">
 				<button class="btn btn-primary" ng-repeat="rating in climbingScale()" ng-class="{ 'btn-success': score.is.special(scale.indexOf(rating)), 'btn-warning': score.is.lame(scale.indexOf(rating)) }" ng-click="addTick(rating)">{{rating}}</button>
@@ -24,7 +23,9 @@
 		</div>
 	</div>
 </div>
-<chart datapoints="state.ticks" sexypoints="sexypoints" special="score.is.special" lame="score.is.lame"></chart>
+<div class="container">
+	<chart datapoints="state.ticks" sexypoints="sexypoints" special="score.is.special" lame="score.is.lame"></chart>
+</div>
 <!-- <div class="container text-left">
 	<h3>Climbs ({{state.ticks.length}})</h3>
 	<table class="table">

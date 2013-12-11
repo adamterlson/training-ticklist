@@ -1,4 +1,4 @@
-var SCALE_LENGTH = 9,
+var SCALE_LENGTH = 8,
 	BONUS_CLIMBS = 2,
 	MAX_POINTS = 10;
 

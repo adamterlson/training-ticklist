@@ -41,7 +41,7 @@ tt.controller('MainCtrl', function MainCtrl($scope, StateStorage, ClimbingTypes,
 	$scope.score = { 
 		is: {
 			lame: function (level) {
-				return level <= (state.projectLevel - SCALE_LENGTH + 3);
+				return level <= (state.projectLevel - SCALE_LENGTH + 2);
 			},
 			special: function (level) {
 				//console.log('special ' + level + ' ' + state.projectLevel + (level >= state.projectLevel));

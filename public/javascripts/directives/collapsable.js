@@ -27,7 +27,7 @@ tt.directive('chart', ['$compile', function ($compile){
 			$scope.$watch('datapoints', function (newValue, oldValue) {
 				$scope.bars = $scope.datapoints.map(function (tick) { 
 					return _.extend(tick, {
-						width: 500/$scope.datapoints.length - 2
+						width: 100/$scope.datapoints.length
 
 					});
 				});
@@ -35,8 +35,8 @@ tt.directive('chart', ['$compile', function ($compile){
 
 			var html = [];
 			html.push('<div class="chart-container"><div class="chart">');
-				html.push('<div class="point" ng-repeat="bar in bars track by $index">');
-					html.push('<div class="bar" ng-class="{special: bar.special, lame: bar.lame}" style="height: {{bar.points*10}}px; width: {{bar.width}}px"><span class="primary">{{bar.description}}</span><span class="secondary">{{bar.points | sexypoints}}</span></div>');
+				html.push('<div class="point" ng-repeat="bar in bars track by $index" style="width: {{bar.width}}%">');
+					html.push('<div class="bar" ng-class="{special: bar.special, lame: bar.lame}" style="height: {{bar.points*10}}px;"><span class="primary">{{bar.description}}</span><span class="secondary">{{bar.points | sexypoints}}</span></div>');
 				html.push('</div>');
             html.push("</div></div>");
             element.html(html.join(''));
