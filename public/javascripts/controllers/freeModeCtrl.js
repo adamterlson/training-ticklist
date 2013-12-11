@@ -1,4 +1,4 @@
-tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
+tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes, $filter) {
 	var state = $scope.state,
 		scale;
 
@@ -56,6 +56,21 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	$scope.$watch('state.climbingType', function (newValue, oldValue) {
 		$scope.scale = scale = _.find(ClimbingTypes, { name: state.climbingType }).scale;
 	});
+
+	$scope.chart = {
+		datapoints: state.ticks,
+		styler: function (tick) {
+			if ($scope.score.is.lame(tick.rating)) {
+				return 'lame';
+			}
+			else if ($scope.score.is.special(tick.rating)) {
+				return 'special';
+			}
+		},
+		formatter: function (tick) {
+			return $filter('sexypoints')(tick.points);
+		}
+	}
 });
 
 function calculatePoints(rating, scale, bestClimb) {
