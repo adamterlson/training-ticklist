@@ -27,7 +27,7 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	};
 
 	$scope.newList = function () {
-		state.ticks = [];
+		state.ticks.length = 0;
 	};
 
 	$scope.addTick = function (rating) {
