@@ -1,6 +1,7 @@
 var SCALE_LENGTH = 8,
 	BONUS_CLIMBS = 2,
-	MAX_POINTS = 10;
+	MAX_POINTS = 10,
+	SOFT_ZONE = 5;
 
 //document.ontouchmove = function(e) { e.preventDefault(); };
 

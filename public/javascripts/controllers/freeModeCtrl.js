@@ -1,18 +1,14 @@
 tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	var state = $scope.state,
-		scale = _.find(ClimbingTypes, { name: state.climbingType }).scale;
+		scale;
 
 	state.program = 'free';
 
-	$scope.scale = scale;
-
 	$scope.climbingScale = function () {
 		var upperBound;
-
 		upperBound = state.projectLevel + BONUS_CLIMBS;
-		if (upperBound >= scale.length) upperBound = scale.length;
-
-		return scale.slice(0, upperBound).slice(-SCALE_LENGTH);
+		if (upperBound >= $scope.scale.length) upperBound = $scope.scale.length;
+		return $scope.scale.slice(0, upperBound).slice(-SCALE_LENGTH);
 	};
 
 	$scope.totalPoints = function () {
@@ -56,6 +52,10 @@ tt.controller('FreeModeCtrl', function FreeModeCtrl($scope, ClimbingTypes) {
 	$scope.removeTick = function (tick) {
 		state.ticks.splice(state.ticks.indexOf(tick), 1);
 	};
+
+	$scope.$watch('state.climbingType', function (newValue, oldValue) {
+		$scope.scale = scale = _.find(ClimbingTypes, { name: state.climbingType }).scale;
+	});
 });
 
 function calculatePoints(rating, scale, bestClimb) {
