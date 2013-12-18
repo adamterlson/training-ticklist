@@ -31,3 +31,17 @@ tt.directive('chart', ['$compile', function ($compile){
 		}
 	}
 }]);
+
+tt.directive('onPinch', function () {
+	return {
+		restrict: 'A',
+		link: function (scope, element, attrs) {
+			Hammer(element[0], {
+				prevent_default: false,
+				drag_vertical: false
+			}).on("pinch", function (ev) {
+				return scope.$apply(attrs['onPinch']);
+			});
+		}
+	};
+});
